@@ -1,0 +1,107 @@
+{
+ "keyword": "anyswap",
+ "h1": "Anyswap",
+ "brand": "Anyswap",
+ "niche": "swap",
+ "verb": "Swap",
+ "title": "Anyswap - Open App",
+ "meta_description": "anyswap app route for legacy cross-chain swaps: open the official interface, connect your wallet, choose networks, and verify every transaction.",
+ "palette": {
+  "mode": "light",
+  "bg": "#FFFFFF",
+  "accent": "#6C5CF6",
+  "ink": "#0B0B0F"
+ },
+ "hero_h2": "Open the legacy cross-chain swap interface",
+ "hero_lead": "anyswap opens a legacy cross-chain swap route for users who want to connect a wallet, choose assets and networks, review the route, and continue inside the official app.",
+ "badge": "Cross-chain",
+ "widget": {
+  "from": "USDC",
+  "from_net": "Ethereum",
+  "to": "USDC",
+  "to_net": "Polygon",
+  "action": "Open Anyswap App"
+ },
+ "trust": [
+  "Legacy Anyswap brand",
+  "Multichain lineage",
+  "Wallet confirmation required"
+ ],
+ "what_is": "Anyswap is the legacy cross-chain swap and bridge brand that later became Multichain, a router for Web3 cross-chain interactions according to the <a href='https://docs.multichain.org/'>Multichain docs</a>. Use this page as an app-first route, then verify the domain before connecting a wallet.",
+ "how": [
+  {
+   "t": "Open the app",
+   "d": "Use the official app link and check the domain before connecting a wallet."
+  },
+  {
+   "t": "Connect wallet",
+   "d": "Select a compatible Web3 wallet and switch to the source network shown in the interface."
+  },
+  {
+   "t": "Choose route",
+   "d": "Pick the asset, source network, destination network, and amount, then review the displayed route."
+  },
+  {
+   "t": "Confirm on-chain",
+   "d": "Approve only the transactions you understand and keep enough native gas on the source network."
+  }
+ ],
+ "points": [
+  {
+   "h": "App-first destination",
+   "p": "The page keeps copy minimal and sends swap-intent traffic straight to the interface where routing and wallet actions happen."
+  },
+  {
+   "h": "Cross-chain context",
+   "p": "Anyswap became part of the Multichain lineage; the <a href='https://github.com/anyswap'>Anyswap GitHub</a> lists public repositories for the protocol history."
+  },
+  {
+   "h": "Verify before signing",
+   "p": "Check the domain, token, network, destination address, and wallet prompt before approving any transaction."
+  }
+ ],
+ "eeat": [
+  {
+   "text": "Multichain documentation",
+   "url": "https://docs.multichain.org/"
+  },
+  {
+   "text": "Anyswap GitHub",
+   "url": "https://github.com/anyswap"
+  },
+  {
+   "text": "Ethereum.org",
+   "url": "https://ethereum.org/"
+  }
+ ],
+ "faq": [
+  {
+   "q": "What is anyswap?",
+   "a": "anyswap is the earlier cross-chain swap and bridge brand associated with Multichain; the <a href='https://docs.multichain.org/'>official docs</a> state that Multichain was born as Anyswap on July 20, 2020.",
+   "open": true
+  },
+  {
+   "q": "Is anyswap the same as Multichain?",
+   "a": "Anyswap was the earlier brand, while Multichain became the broader cross-chain router identity. Always verify which app and domain you are using before connecting a wallet.",
+   "open": false
+  },
+  {
+   "q": "How do I use anyswap safely?",
+   "a": "Open the official app URL, confirm the domain, connect your wallet, review the selected asset and networks, and approve only the transactions you intend to send.",
+   "open": false
+  },
+  {
+   "q": "Does anyswap require a wallet?",
+   "a": "Yes, swap and bridge flows normally require a compatible Web3 wallet because transaction approvals are signed from your own wallet.",
+   "open": false
+  },
+  {
+   "q": "Is anyswap financial advice?",
+   "a": "No. This page is an educational route to the app; crypto swaps involve smart-contract, liquidity, bridge, and market risks.",
+   "open": false
+  }
+ ],
+ "official_url": "https://anyswap-v2.github.io/",
+ "official_domain": "anyswap-v2.github.io",
+ "footer_note": "Not the official app; verify anyswap-v2.github.io before connecting a wallet. Educational only, not financial advice."
+}
