@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: INSERT_URL/sitemap.xml
+Sitemap: https://anyswap-v2.github.io/sitemap.xml
