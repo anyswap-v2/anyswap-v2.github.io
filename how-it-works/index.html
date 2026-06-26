@@ -1,0 +1,1145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>How Anyswap v2 Swaps Work</title>
+  <meta name="description" content="Step-by-step overview of trade execution, pricing algorithms, and slippage controls.">
+  <link rel="canonical" href="https://anyswap-v2.github.io/how-it-works/">
+  <meta name="robots" content="index,follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="How Anyswap v2 Swaps Work">
+  <meta property="og:description" content="Step-by-step overview of trade execution, pricing algorithms, and slippage controls.">
+  <meta property="og:url" content="https://anyswap-v2.github.io/how-it-works/">
+  <meta property="og:image" content="https://anyswap-v2.github.io/og-cover.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How Anyswap v2 Swaps Work">
+  <meta name="twitter:description" content="Step-by-step overview of trade execution, pricing algorithms, and slippage controls.">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <link rel="apple-touch-icon" href="../favicon.png">
+  <style>
+
+
+:root {
+  --base: #f7f8fc;
+  --base-deep: #eef1f8;
+  --surface: #ffffff;
+  --surface-soft: #f9faff;
+  --ink: #10131f;
+  --text: #34394a;
+  --muted: #6d7486;
+  --quiet: #9aa2b5;
+  --line: rgba(23, 29, 48, 0.11);
+  --line-strong: rgba(23, 29, 48, 0.17);
+  --accent: #625bf3;
+  --accent-deep: #7c3aed;
+  --accent-ink: #352bca;
+  --shadow: 0 28px 80px rgba(29, 35, 58, 0.16);
+  --shadow-soft: 0 16px 36px rgba(29, 35, 58, 0.09);
+  --radius-xl: 30px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 78% 22%, rgba(98, 91, 243, 0.18), transparent 32%),
+    linear-gradient(180deg, var(--base), var(--base-deep));
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.topbar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  padding: 22px clamp(22px, 4vw, 54px) 10px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  color: var(--ink);
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.brand img,
+.network-pill img {
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.72),
+    0 10px 24px rgba(98, 91, 243, 0.26);
+}
+
+.brand span {
+  white-space: nowrap;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(18px, 2.5vw, 34px);
+}
+
+.nav a {
+  color: var(--muted);
+  font-size: 0.91rem;
+  font-weight: 650;
+  transition: color 160ms ease;
+}
+
+.nav a:hover {
+  color: var(--ink);
+}
+
+.page-shell {
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - 68px);
+  min-height: calc(100dvh - 68px);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto auto;
+  width: min(100%, 1220px);
+  margin: 0 auto;
+  padding: 12px clamp(18px, 4vw, 54px) 18px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(390px, 0.78fr);
+  align-items: center;
+  gap: clamp(34px, 6vw, 84px);
+  min-height: 0;
+}
+
+.hero-copy {
+  min-width: 0;
+  max-width: 650px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 34px;
+  margin: 0 0 18px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 760;
+  box-shadow: 0 10px 28px rgba(29, 35, 58, 0.06);
+}
+
+.eyebrow span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  box-shadow: 0 0 0 5px rgba(98, 91, 243, 0.12);
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: var(--ink);
+  font-size: clamp(4.1rem, 8.2vw, 7.25rem);
+  line-height: 0.9;
+  font-weight: 860;
+  letter-spacing: 0;
+}
+
+.value {
+  max-width: 56ch;
+  margin-bottom: 22px;
+  color: var(--text);
+  font-size: clamp(1.03rem, 1.35vw, 1.2rem);
+}
+
+.value strong {
+  color: var(--ink);
+  font-weight: 820;
+}
+
+h2 {
+  max-width: 38rem;
+  margin-bottom: 20px;
+  color: var(--ink);
+  font-size: clamp(1.42rem, 2.1vw, 2.08rem);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.trust-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.trust-chips span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 680;
+}
+
+.primary-link {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  color: #ffffff;
+  font-size: 0.98rem;
+  font-weight: 820;
+  box-shadow: 0 18px 42px rgba(98, 91, 243, 0.28);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.primary-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.26) 42%, transparent 64%);
+  transform: translateX(-120%);
+  transition: transform 520ms ease;
+}
+
+.primary-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 48px rgba(98, 91, 243, 0.34);
+}
+
+.primary-link:hover::before {
+  transform: translateX(120%);
+}
+
+.hero-link {
+  min-width: 154px;
+  padding: 0 28px;
+}
+
+.app-window {
+  position: relative;
+  width: min(100%, 470px);
+  justify-self: end;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.78)),
+    var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.window-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  margin-bottom: 14px;
+}
+
+.network-pill,
+.preview-pill {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text);
+  font-size: 0.83rem;
+  font-weight: 760;
+}
+
+.network-pill {
+  gap: 9px;
+  min-height: 38px;
+  padding: 0 13px 0 8px;
+}
+
+.preview-pill {
+  gap: 8px;
+  min-height: 34px;
+  padding: 0 12px;
+  color: var(--muted);
+}
+
+.preview-pill span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(98, 91, 243, 0.32);
+  animation: previewPulse 1900ms ease-out infinite;
+}
+
+.route-stack {
+  display: grid;
+  grid-template-rows: auto 0 auto;
+  align-items: center;
+}
+
+.asset-panel {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, var(--surface), var(--surface-soft));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.panel-label {
+  display: block;
+  margin-bottom: 13px;
+  color: var(--quiet);
+  font-size: 0.72rem;
+  font-weight: 820;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.asset-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 50px;
+  max-width: 100%;
+  padding: 5px 16px 5px 5px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--ink);
+  font-size: 1.1rem;
+  font-weight: 820;
+  box-shadow: 0 12px 26px rgba(29, 35, 58, 0.07);
+}
+
+.asset-chip img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--line);
+  flex: 0 0 auto;
+}
+
+.switch {
+  position: relative;
+  z-index: 2;
+  justify-self: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--accent-ink);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  transition: transform 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.switch span {
+  display: block;
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: transform 180ms ease;
+}
+
+.switch:hover {
+  border-color: var(--line-strong);
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 38px rgba(98, 91, 243, 0.18);
+}
+
+.switch.is-swapped span {
+  transform: rotate(180deg);
+}
+
+.route-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 46px;
+  margin: 16px 0;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(249, 250, 255, 0.74);
+  color: var(--muted);
+  font-size: 0.83rem;
+  font-weight: 720;
+}
+
+.hop-line {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 72px;
+  flex: 1 1 auto;
+}
+
+.hop-line i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(98, 91, 243, 0.42);
+  box-shadow: 20px 0 0 rgba(23, 29, 48, 0.08);
+}
+
+.card-link {
+  width: 100%;
+  min-height: 56px;
+  border-radius: var(--radius-md);
+}
+
+.texture-band {
+  min-width: 0;
+  margin: 10px 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.48)),
+    repeating-linear-gradient(135deg, rgba(23, 29, 48, 0.035) 0 1px, transparent 1px 12px);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.texture-track {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 46px;
+  width: max-content;
+  padding: 0 16px;
+  animation: drift 28s linear infinite;
+}
+
+.texture-track span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.46);
+  color: rgba(52, 57, 74, 0.55);
+  font-size: 0.76rem;
+  font-weight: 720;
+  white-space: nowrap;
+}
+
+.footer {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 620;
+  text-align: center;
+}
+
+.footer p {
+  margin: 0;
+}
+
+@keyframes previewPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(98, 91, 243, 0.32);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(98, 91, 243, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(98, 91, 243, 0);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 921px) {
+  body {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 920px) {
+  body {
+    overflow-y: auto;
+  }
+
+  .topbar {
+    padding: 18px 18px 6px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .page-shell {
+    min-height: auto;
+    display: block;
+    padding: 18px 18px 20px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .hero-copy {
+    max-width: 720px;
+  }
+
+  h1 {
+    font-size: clamp(3.18rem, 16vw, 5.1rem);
+  }
+
+  .value {
+    font-size: 1rem;
+  }
+
+  .trust-chips {
+    margin-bottom: 24px;
+  }
+
+  .app-window {
+    justify-self: stretch;
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .texture-band {
+    margin-top: 26px;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar {
+    gap: 12px;
+  }
+
+  .brand {
+    font-size: 0.98rem;
+  }
+
+  .page-shell {
+    padding-inline: 14px;
+  }
+
+  .eyebrow {
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-size: 1.32rem;
+  }
+
+  .trust-chips {
+    gap: 8px;
+  }
+
+  .trust-chips span {
+    min-height: 34px;
+    padding-inline: 11px;
+    font-size: 0.82rem;
+  }
+
+  .hero-link {
+    width: 100%;
+  }
+
+  .app-window {
+    padding: 12px;
+    border-radius: 24px;
+  }
+
+  .window-chrome {
+    gap: 8px;
+  }
+
+  .network-pill,
+  .preview-pill {
+    font-size: 0.76rem;
+  }
+
+  .network-pill {
+    padding-right: 10px;
+  }
+
+  .asset-panel {
+    padding: 15px;
+  }
+
+  .route-row {
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 58px;
+    padding: 8px 10px;
+    text-align: center;
+  }
+
+  .hop-line {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .texture-track {
+    min-height: 42px;
+  }
+
+  .footer {
+    padding: 0 4px;
+  }
+}
+
+@media (max-height: 740px) and (min-width: 921px) {
+  .topbar {
+    padding-top: 14px;
+  }
+
+  .page-shell {
+    padding-top: 4px;
+    padding-bottom: 12px;
+  }
+
+  .eyebrow {
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    margin-bottom: 14px;
+    font-size: clamp(3.6rem, 7vw, 5.8rem);
+  }
+
+  .value,
+  h2 {
+    margin-bottom: 14px;
+  }
+
+  .trust-chips {
+    margin-bottom: 18px;
+  }
+
+  .texture-band {
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+
+  .texture-track {
+    min-height: 38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+
+  
+
+/* --- Satellite Layout Styles (Appended dynamically by Builder) --- */
+:root {
+  --bg-fallback: var(--bg, var(--base, #f9fafc));
+  --ink-body-fallback: var(--ink-body, var(--text, var(--ink, #1f2937)));
+  --muted-fallback: var(--muted, var(--quiet, #4b5563));
+  --panel-fallback: var(--panel, var(--surface, #ffffff));
+  --panel-strong-fallback: var(--panel-strong, var(--surface-soft, var(--base-deep, #f3f4f6)));
+  --line-fallback: var(--line, rgba(0, 0, 0, 0.08));
+  --line-strong-fallback: var(--line-strong, rgba(0, 0, 0, 0.14));
+  --accent-fallback: var(--accent, #625bf3);
+}
+
+body {
+  overflow-y: auto !important;
+  height: auto !important;
+  min-height: 100dvh;
+}
+
+.satellite-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  width: 100%;
+}
+
+.breadcrumb {
+  font-size: 0.875rem;
+  color: var(--muted-fallback);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb a {
+  color: var(--muted-fallback);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--accent-fallback);
+}
+
+.satellite-title {
+  font-size: clamp(2.1rem, 5.5vw, 2.9rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  color: var(--ink-body-fallback);
+}
+
+.satellite-lead {
+  font-size: 1.125rem;
+  color: var(--muted-fallback);
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.satellite-lead strong {
+  color: var(--ink-body-fallback);
+}
+
+.section-block {
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.section-block h2 {
+  font-size: 1.55rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  color: var(--ink-body-fallback);
+  border-bottom: 1px solid var(--line-fallback);
+  padding-bottom: 8px;
+}
+
+.section-block h3 {
+  font-size: 1.2rem;
+  font-weight: 650;
+  margin: 24px 0 12px;
+  color: var(--ink-body-fallback);
+}
+
+.section-block p {
+  color: var(--muted-fallback);
+  margin-bottom: 18px;
+  line-height: 1.7;
+}
+
+.section-block p strong {
+  color: var(--ink-body-fallback);
+}
+
+.section-block ul, .section-block ol {
+  margin: 18px 0;
+  padding-left: 24px;
+  color: var(--muted-fallback);
+}
+
+.section-block li {
+  margin-bottom: 8px;
+  line-height: 1.65;
+}
+
+.section-block li strong {
+  color: var(--ink-body-fallback);
+}
+
+/* Info Grid Cards */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+  margin: 24px 0;
+}
+
+.info-card {
+  padding: 22px;
+  border-radius: 16px;
+  border: 1px solid var(--line-fallback);
+  background-color: var(--panel-fallback);
+  text-align: left;
+}
+
+.info-card h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: var(--ink-body-fallback);
+}
+
+.info-card p {
+  font-size: 0.9rem;
+  color: var(--muted-fallback);
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Tables */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line-fallback);
+  background-color: var(--panel-fallback);
+  margin: 28px 0;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.925rem;
+  text-align: left;
+}
+
+.data-table th {
+  padding: 15px 20px;
+  background-color: var(--panel-strong-fallback);
+  color: var(--ink-body-fallback);
+  font-weight: 700;
+  border-bottom: 1px solid var(--line-fallback);
+}
+
+.data-table td {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--line-fallback);
+  color: var(--muted-fallback);
+}
+
+.data-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.data-table tr:hover td {
+  color: var(--ink-body-fallback);
+  background-color: var(--panel-strong-fallback);
+}
+
+.highlight-cell {
+  color: var(--accent-fallback);
+  font-weight: 600;
+}
+
+/* Accordion details/summary for FAQ Page */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 28px 0;
+}
+
+.faq-item {
+  border: 1px solid var(--line-fallback);
+  border-radius: 12px;
+  background-color: var(--panel-fallback);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+  text-align: left;
+}
+
+.faq-item[open] {
+  border-color: var(--line-strong-fallback);
+}
+
+.faq-item summary {
+  padding: 20px 24px;
+  font-weight: 650;
+  font-size: 1.05rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  color: var(--ink-body-fallback);
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  font-size: 1.3rem;
+  color: var(--muted-fallback);
+  transition: transform 0.2s ease;
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+  color: var(--accent-fallback);
+}
+
+.faq-item summary:hover {
+  background-color: var(--panel-strong-fallback);
+}
+
+.faq-content {
+  padding: 0 24px 22px;
+  font-size: 0.95rem;
+  color: var(--muted-fallback);
+  line-height: 1.65;
+}
+
+/* Back Link Button */
+.back-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 40px;
+  padding: 12px 24px;
+  background-color: var(--panel-fallback);
+  border: 1px solid var(--line-fallback);
+  border-radius: 9999px;
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: var(--ink-body-fallback);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.back-cta:hover {
+  border-color: var(--line-strong-fallback);
+  background-color: var(--panel-strong-fallback);
+  color: var(--accent-fallback);
+  transform: translateY(-1px);
+}
+
+/* Camouflaged Links (blend in for EEAT, fully crawlable) */
+a.inline {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1.5px dashed var(--line-strong-fallback);
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+a.inline:hover {
+  color: var(--accent-fallback);
+  border-bottom-color: var(--accent-fallback);
+}
+
+.footer {
+  text-align: center !important;
+  display: block !important;
+  width: 100% !important;
+  margin: 40px auto 0 !important;
+  padding: 20px 0 !important;
+}
+
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://anyswap-v2.github.io/#website",
+      "url": "https://anyswap-v2.github.io/",
+      "name": "Anyswap v2"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://anyswap-v2.github.io/how-it-works/#webpage",
+      "url": "https://anyswap-v2.github.io/how-it-works/",
+      "name": "How Anyswap v2 Swaps Work",
+      "isPartOf": {
+        "@id": "https://anyswap-v2.github.io/#website"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://anyswap-v2.github.io/how-it-works/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://anyswap-v2.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "How Anyswap v2 Swaps Work"
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://anyswap-v2.github.io/how-it-works/#howto",
+      "name": "How to use Anyswap v2",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "1. Liquidity Aggregation",
+          "text": "Liquidity providers deposit equal values of two tokens into a pool contract. The contract uses formulas to calculate relative values, checked against <a class=\"inline\" href=\"https://www.coingecko.com/\" target=\"_blank\" rel=\"noopener noreferrer\">CoinGecko token databases</a>."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "2. Routing the Trade",
+          "text": "When a user submits a swap request, the protocol's routing engine searches across multiple pools to construct the most cost-efficient path, minimizing gas fees as explained in <a class=\"inline\" href=\"https://ethereum.org/en/developers/docs/gas/\" target=\"_blank\" rel=\"noopener noreferrer\">Ethereum gas dynamics</a>."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "3. Price Calculation & Slippage",
+          "text": "The AMM algorithm calculates the conversion rate based on trade size. Slippage is the difference between expected and executed price. The routing engine utilizes optimized paths modeled on <a class=\"inline\" href=\"https://uniswap.org/\" target=\"_blank\" rel=\"noopener noreferrer\">Uniswap liquidity routing</a>."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "4. On-Chain Settlement",
+          "text": "The trade is settled atomically in a single transaction block. The contract takes the input token from the user's wallet, adds it to the pool, and deposits the output token directly back to the wallet."
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="Anyswap v2">
+      <img src="../favicon.png" width="30" height="30" alt="">
+      <span>Anyswap v2</span>
+    </a>
+    <nav class="nav" aria-label="Main Navigation">
+      <a href="../how-it-works/" class="active">How it works</a>
+      <a href="../faq/" >FAQ</a>
+      <a href="../about/" >About</a>
+      <a href="../security/" >Security</a>
+      <a href="../supported-chains/" >Supported Chains</a>
+    </nav>
+    <span class="spacer"></span>
+    <a class="open-app" href="../dashboard/" rel="noopener noreferrer">Open app</a>
+  </header>
+
+  <main class="satellite-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../">Home</a> › <span>How Anyswap v2 Swaps Work</span>
+    </nav>
+
+    <h1 class="satellite-title">How Anyswap v2 Swaps Work</h1>
+    <p class="satellite-lead">Step-by-step overview of trade execution, pricing algorithms, and slippage controls.</p>
+
+    
+    <div class="section-block">
+      <h2>1. Liquidity Aggregation</h2>
+      <p>Liquidity providers deposit equal values of two tokens into a pool contract. The contract uses formulas to calculate relative values, checked against <a class="inline" href="https://www.coingecko.com/" target="_blank" rel="noopener noreferrer">CoinGecko token databases</a>.</p>
+    </div>
+    <div class="section-block">
+      <h2>2. Routing the Trade</h2>
+      <p>When a user submits a swap request, the protocol's routing engine searches across multiple pools to construct the most cost-efficient path, minimizing gas fees as explained in <a class="inline" href="https://ethereum.org/en/developers/docs/gas/" target="_blank" rel="noopener noreferrer">Ethereum gas dynamics</a>.</p>
+    </div>
+    <div class="section-block">
+      <h2>3. Price Calculation & Slippage</h2>
+      <p>The AMM algorithm calculates the conversion rate based on trade size. Slippage is the difference between expected and executed price. The routing engine utilizes optimized paths modeled on <a class="inline" href="https://uniswap.org/" target="_blank" rel="noopener noreferrer">Uniswap liquidity routing</a>.</p>
+    </div>
+    <div class="section-block">
+      <h2>4. On-Chain Settlement</h2>
+      <p>The trade is settled atomically in a single transaction block. The contract takes the input token from the user's wallet, adds it to the pool, and deposits the output token directly back to the wallet.</p>
+    </div>
+
+    <div style="margin: 40px 0; display: flex; justify-content: flex-start;">
+      <a class="open-app" href="../dashboard/" style="max-width: 320px; display: inline-flex; justify-content: center; text-decoration: none; padding: 12px 24px; font-weight: 700;">Open Anyswap v2 Portal</a>
+    </div>
+
+    <a class="back-cta" href="../">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to Portal
+    </a>
+  </main>
+
+  <footer class="footer">
+    <p class="disc" style="font-size: 0.78rem; opacity: 0.7; max-width: 650px; margin: 0 auto; line-height: 1.45; text-align: center;">Disclaimer: Information on this site is provided strictly for educational and historical archiving purposes. Anyswap v2 is a reference template. All product names, logos, and brands are property of their respective owners.</p>
+  </footer>
+</body>
+</html>
