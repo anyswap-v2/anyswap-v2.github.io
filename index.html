@@ -3,727 +3,171 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Anyswap v2 - Decentralized DeFi Portal</title>
-  <meta name="description" content="Secure, non-custodial portal for Anyswap v2 DeFi operations directly from your own wallet.">
+  <!-- TEMPLATE: Wide Route (light). -->
+  <title>Anyswap v2 - Cross-Chain Swap App</title>
+  <meta name="description" content="Anyswap v2 app for wallet-native swaps and bridge routes across crypto networks, with live route details before you sign. Open the app.">
+  <meta name="theme-color" content="#FBFAF7">
   <link rel="canonical" href="https://anyswap-v2.github.io/">
   <meta name="robots" content="index,follow">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
   <link rel="manifest" href="site.webmanifest">
   <link rel="prefetch" href="dashboard/">
-  <link rel="prerender" href="dashboard/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Anyswap v2 - Cross-Chain Swap App">
+  <meta property="og:description" content="Anyswap v2 helps you swap and bridge assets from your own wallet with live route details before confirmation.">
+  <meta property="og:image" content="https://anyswap-v2.github.io/og-cover.png">
+  <meta property="og:url" content="https://anyswap-v2.github.io/">
   <style>
-
-
-:root {
-  --base: #f7f8fc;
-  --base-deep: #eef1f8;
-  --surface: #ffffff;
-  --surface-soft: #f9faff;
-  --ink: #10131f;
-  --text: #34394a;
-  --muted: #6d7486;
-  --quiet: #9aa2b5;
-  --line: rgba(23, 29, 48, 0.11);
-  --line-strong: rgba(23, 29, 48, 0.17);
-  --accent: #625bf3;
-  --accent-deep: #7c3aed;
-  --accent-ink: #352bca;
-  --shadow: 0 28px 80px rgba(29, 35, 58, 0.16);
-  --shadow-soft: 0 16px 36px rgba(29, 35, 58, 0.09);
-  --radius-xl: 30px;
-  --radius-lg: 22px;
-  --radius-md: 16px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  min-height: 100%;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100vh;
-  min-height: 100dvh;
-  margin: 0;
-  color: var(--ink);
-  background:
-    radial-gradient(circle at 78% 22%, rgba(98, 91, 243, 0.18), transparent 32%),
-    linear-gradient(180deg, var(--base), var(--base-deep));
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-.topbar {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  width: 100%;
-  padding: 22px clamp(22px, 4vw, 54px) 10px;
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-  color: var(--ink);
-  font-size: 1.02rem;
-  font-weight: 800;
-  letter-spacing: 0;
-}
-
-.brand img,
-.network-pill img {
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.72),
-    0 10px 24px rgba(98, 91, 243, 0.26);
-}
-
-.brand span {
-  white-space: nowrap;
-}
-
-.spacer {
-  flex: 1 1 auto;
-}
-
-.nav {
-  display: inline-flex;
-  align-items: center;
-  gap: clamp(18px, 2.5vw, 34px);
-}
-
-.nav a {
-  color: var(--muted);
-  font-size: 0.91rem;
-  font-weight: 650;
-  transition: color 160ms ease;
-}
-
-.nav a:hover {
-  color: var(--ink);
-}
-
-.page-shell {
-  position: relative;
-  z-index: 1;
-  min-height: calc(100vh - 68px);
-  min-height: calc(100dvh - 68px);
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto auto;
-  width: min(100%, 1220px);
-  margin: 0 auto;
-  padding: 12px clamp(18px, 4vw, 54px) 18px;
-}
-
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(390px, 0.78fr);
-  align-items: center;
-  gap: clamp(34px, 6vw, 84px);
-  min-height: 0;
-}
-
-.hero-copy {
-  min-width: 0;
-  max-width: 650px;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  min-height: 34px;
-  margin: 0 0 18px;
-  padding: 0 13px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.62);
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-weight: 760;
-  box-shadow: 0 10px 28px rgba(29, 35, 58, 0.06);
-}
-
-.eyebrow span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
-  box-shadow: 0 0 0 5px rgba(98, 91, 243, 0.12);
-}
-
-h1,
-h2,
-p {
-  margin-top: 0;
-}
-
-h1 {
-  margin-bottom: 20px;
-  color: var(--ink);
-  font-size: clamp(4.1rem, 8.2vw, 7.25rem);
-  line-height: 0.9;
-  font-weight: 860;
-  letter-spacing: 0;
-}
-
-.value {
-  max-width: 56ch;
-  margin-bottom: 22px;
-  color: var(--text);
-  font-size: clamp(1.03rem, 1.35vw, 1.2rem);
-}
-
-.value strong {
-  color: var(--ink);
-  font-weight: 820;
-}
-
-h2 {
-  max-width: 38rem;
-  margin-bottom: 20px;
-  color: var(--ink);
-  font-size: clamp(1.42rem, 2.1vw, 2.08rem);
-  line-height: 1.12;
-  font-weight: 800;
-  letter-spacing: 0;
-}
-
-.trust-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 28px;
-}
-
-.trust-chips span {
-  display: inline-flex;
-  align-items: center;
-  min-height: 36px;
-  padding: 0 13px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.55);
-  color: var(--muted);
-  font-size: 0.88rem;
-  font-weight: 680;
-}
-
-.primary-link {
-  position: relative;
-  isolation: isolate;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 54px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 999px;
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
-  color: #ffffff;
-  font-size: 0.98rem;
-  font-weight: 820;
-  box-shadow: 0 18px 42px rgba(98, 91, 243, 0.28);
-  transition: transform 180ms ease, box-shadow 180ms ease;
-}
-
-.primary-link::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.26) 42%, transparent 64%);
-  transform: translateX(-120%);
-  transition: transform 520ms ease;
-}
-
-.primary-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 22px 48px rgba(98, 91, 243, 0.34);
-}
-
-.primary-link:hover::before {
-  transform: translateX(120%);
-}
-
-.hero-link {
-  min-width: 154px;
-  padding: 0 28px;
-}
-
-.app-window {
-  position: relative;
-  width: min(100%, 470px);
-  justify-self: end;
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-xl);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.78)),
-    var(--surface);
-  box-shadow: var(--shadow);
-}
-
-.window-chrome {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  min-height: 44px;
-  margin-bottom: 14px;
-}
-
-.network-pill,
-.preview-pill {
-  display: inline-flex;
-  align-items: center;
-  min-width: 0;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
-  color: var(--text);
-  font-size: 0.83rem;
-  font-weight: 760;
-}
-
-.network-pill {
-  gap: 9px;
-  min-height: 38px;
-  padding: 0 13px 0 8px;
-}
-
-.preview-pill {
-  gap: 8px;
-  min-height: 34px;
-  padding: 0 12px;
-  color: var(--muted);
-}
-
-.preview-pill span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 0 rgba(98, 91, 243, 0.32);
-  animation: previewPulse 1900ms ease-out infinite;
-}
-
-.route-stack {
-  display: grid;
-  grid-template-rows: auto 0 auto;
-  align-items: center;
-}
-
-.asset-panel {
-  min-width: 0;
-  padding: 18px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  background:
-    linear-gradient(180deg, var(--surface), var(--surface-soft));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
-}
-
-.panel-label {
-  display: block;
-  margin-bottom: 13px;
-  color: var(--quiet);
-  font-size: 0.72rem;
-  font-weight: 820;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.asset-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 50px;
-  max-width: 100%;
-  padding: 5px 16px 5px 5px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: #ffffff;
-  color: var(--ink);
-  font-size: 1.1rem;
-  font-weight: 820;
-  box-shadow: 0 12px 26px rgba(29, 35, 58, 0.07);
-}
-
-.asset-chip img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px var(--line);
-  flex: 0 0 auto;
-}
-
-.switch {
-  position: relative;
-  z-index: 2;
-  justify-self: center;
-  width: 48px;
-  height: 48px;
-  border: 1px solid var(--line-strong);
-  border-radius: 50%;
-  background: #ffffff;
-  color: var(--accent-ink);
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  box-shadow: var(--shadow-soft);
-  transition: transform 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
-}
-
-.switch span {
-  display: block;
-  font-size: 1.15rem;
-  line-height: 1;
-  transition: transform 180ms ease;
-}
-
-.switch:hover {
-  border-color: var(--line-strong);
-  color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: 0 18px 38px rgba(98, 91, 243, 0.18);
-}
-
-.switch.is-swapped span {
-  transform: rotate(180deg);
-}
-
-.route-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  min-height: 46px;
-  margin: 16px 0;
-  padding: 0 14px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  background: rgba(249, 250, 255, 0.74);
-  color: var(--muted);
-  font-size: 0.83rem;
-  font-weight: 720;
-}
-
-.hop-line {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  min-width: 72px;
-  flex: 1 1 auto;
-}
-
-.hop-line i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(98, 91, 243, 0.42);
-  box-shadow: 20px 0 0 rgba(23, 29, 48, 0.08);
-}
-
-.card-link {
-  width: 100%;
-  min-height: 56px;
-  border-radius: var(--radius-md);
-}
-
-.texture-band {
-  min-width: 0;
-  margin: 10px 0 12px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.48)),
-    repeating-linear-gradient(135deg, rgba(23, 29, 48, 0.035) 0 1px, transparent 1px 12px);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-
-.texture-track {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 46px;
-  width: max-content;
-  padding: 0 16px;
-  animation: drift 28s linear infinite;
-}
-
-.texture-track span {
-  display: inline-flex;
-  align-items: center;
-  min-height: 28px;
-  padding: 0 12px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.46);
-  color: rgba(52, 57, 74, 0.55);
-  font-size: 0.76rem;
-  font-weight: 720;
-  white-space: nowrap;
-}
-
-.footer {
-  color: var(--muted);
-  font-size: 0.8rem;
-  font-weight: 620;
-  text-align: center;
-}
-
-.footer p {
-  margin: 0;
-}
-
-@keyframes previewPulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(98, 91, 243, 0.32);
+  :root{
+    --bg:#FBFAF7; --panel:#FFFFFF; --field:#F2F6F4;
+    --ink:#0F1A18; --muted:#5C6A66; --faint:#93A09B;
+    --line:rgba(15,26,24,.09); --line-2:rgba(15,26,24,.05);
+    --accent:#4E5BA6; --accent-ink:#39437A; --accent-soft:rgba(78,91,166,0.1);
+    --pos:#15A34A;
+    --radius:22px; --radius-sm:14px;
+    --shadow-card:0 1px 0 rgba(15,26,24,.03), 0 34px 64px -30px rgba(10,50,44,.28), 0 10px 24px -18px rgba(10,50,44,.16);
+    --shadow-soft:0 1px 0 rgba(15,26,24,.02), 0 20px 44px -32px rgba(10,50,44,.22);
+    --ui:"Space Grotesk",-apple-system,system-ui,sans-serif;
+    --body:"Inter",-apple-system,system-ui,sans-serif;
   }
-  70% {
-    box-shadow: 0 0 0 8px rgba(98, 91, 243, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(98, 91, 243, 0);
-  }
-}
+  *{box-sizing:border-box}
+  html,body{margin:0; overflow-x:hidden}
+  body{background:var(--bg); color:var(--ink); font-family:var(--body); line-height:1.55; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; position:relative}
+  a{color:inherit; text-decoration:none}
+  a.cite{color:inherit; text-decoration:none; border-bottom:1px dotted transparent; transition:border-color .15s ease}
+  a.cite:hover{border-bottom-color:var(--faint)}
+  img{display:block; max-width:100%}
+  button{font:inherit; cursor:pointer; border:none; background:none; color:inherit}
+  h1,h2,h3,p{margin:0}
 
-@keyframes drift {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
+  /* texture: diagonal hatch + soft glow */
+  .bg{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
+  .bg .glow{position:absolute; inset:0; background:
+      radial-gradient(760px 480px at 50% -6%, rgba(78,91,166,.11), transparent 62%),
+      radial-gradient(620px 520px at 90% 16%, rgba(78,91,166,.06), transparent 60%);}
+  .bg .hatch{position:absolute; inset:0;
+    background-image:repeating-linear-gradient(45deg, rgba(15,26,24,.04) 0 1px, transparent 1px 13px);
+    -webkit-mask-image:radial-gradient(130% 85% at 50% 8%, #000 46%, transparent 90%);
+            mask-image:radial-gradient(130% 85% at 50% 8%, #000 46%, transparent 90%);}
 
-@media (min-width: 921px) {
-  body {
-    height: 100vh;
-    height: 100dvh;
-    overflow: hidden;
+  .topbar{position:relative; z-index:5; display:flex; align-items:center; gap:22px; width:min(100%,1180px); margin:0 auto; padding:20px clamp(18px,4vw,48px) 8px}
+  .brand{display:inline-flex; align-items:center; gap:11px; font-family:var(--ui); font-weight:600; font-size:1.05rem; letter-spacing:-.01em}
+  .brand img{width:30px; height:30px; border-radius:50%; box-shadow:0 0 0 1px rgba(255,255,255,.8), 0 8px 18px -12px rgba(78,91,166,.5)}
+  .spacer{flex:1}
+  .nav{display:flex; align-items:center; gap:clamp(16px,2.6vw,30px)}
+  .nav a{font-family:var(--ui); font-weight:500; font-size:.92rem; color:var(--muted); transition:color .16s ease}
+  .nav a:hover{color:var(--accent-ink)}
+
+  .wrap{position:relative; z-index:2; width:min(100%,1180px); margin:0 auto; padding:0 clamp(18px,4vw,48px)}
+  .sec{padding-top:clamp(50px,7vh,90px); padding-bottom:clamp(50px,7vh,90px)}
+  .sec-head{max-width:60ch; margin:0 0 clamp(26px,4vh,40px)}
+  .eyebrow{display:inline-flex; align-items:center; gap:9px; font-family:var(--ui); font-weight:600; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-ink)}
+  .eyebrow .dot{width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px var(--accent-soft)}
+  .eyebrow svg{width:15px; height:15px}
+  .h2{margin-top:14px; font-family:var(--ui); font-weight:700; color:var(--ink); font-size:clamp(1.9rem,3.4vw,2.7rem); line-height:1.04; letter-spacing:-.02em}
+  .sec-head p{margin-top:14px; color:var(--muted); font-size:clamp(1rem,1.3vw,1.12rem); line-height:1.6}
+
+  /* hero - centered headline + WIDE route band */
+  .hero{text-align:center; padding-top:clamp(24px,4vh,52px); padding-bottom:clamp(16px,3vh,32px)}
+  .hero .eyebrow{margin:0 auto}
+  .hero h1{margin:20px auto 0; font-family:var(--ui); font-weight:700; color:var(--ink); font-size:clamp(2.9rem,6.6vw,5rem); line-height:.98; letter-spacing:-.035em; max-width:16ch}
+  .deck{max-width:50ch; margin:18px auto 0; color:var(--muted); font-size:clamp(1.04rem,1.5vw,1.2rem); line-height:1.58}
+  .deck strong{color:var(--ink); font-weight:600; box-shadow:inset 0 -.36em 0 var(--accent-soft)}
+  .cta-row{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:14px; margin:26px 0 0}
+  .primary{display:inline-flex; align-items:center; justify-content:center; gap:9px; min-height:54px; padding:0 28px; border-radius:14px; background:var(--ink); color:#fff; font-family:var(--ui); font-weight:600; font-size:1.02rem; letter-spacing:-.01em; box-shadow:0 16px 30px -16px rgba(15,26,24,.7); transition:transform .18s ease, filter .18s ease}
+  .primary:hover{transform:translateY(-1px); filter:brightness(1.08)}
+  .primary svg{width:17px; height:17px}
+  .ghost{display:inline-flex; align-items:center; gap:7px; min-height:54px; padding:0 18px; font-family:var(--ui); font-weight:600; font-size:.98rem; color:var(--muted); transition:color .16s ease}
+  .ghost:hover{color:var(--accent-ink)}
+  .ghost svg{width:15px; height:15px}
+
+  /* WIDE route band */
+  .routebar{width:min(100%,920px); margin:clamp(32px,5vh,48px) auto 0; padding:18px; background:var(--panel); border:1px solid var(--line); border-radius:24px; box-shadow:var(--shadow-card); position:relative; text-align:left}
+  .routebar::before{content:""; position:absolute; inset:0 0 auto; height:1px; border-radius:24px 24px 0 0; background:linear-gradient(90deg, transparent, rgba(78,91,166,.4), transparent)}
+  .rhead{display:flex; align-items:center; justify-content:space-between; padding:2px 8px 14px}
+  .rhead .ct{font-family:var(--ui); font-weight:600; font-size:1.04rem}
+  .pill{display:inline-flex; align-items:center; gap:7px; padding:5px 11px 5px 9px; border-radius:999px; background:var(--accent-soft); color:var(--accent-ink); font-family:var(--ui); font-weight:600; font-size:.76rem}
+  .pill .pdot{width:7px; height:7px; border-radius:50%; background:var(--accent); animation:pulse 2.4s ease-out infinite}
+  .rgrid{display:grid; grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr); align-items:center; gap:14px}
+  .leg{min-width:0; padding:18px 20px; border:1px solid var(--line); border-radius:16px; background:var(--field)}
+  .leg .lab{display:block; color:var(--muted); font-size:.78rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase}
+  .leg .legrow{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:12px}
+  .leg .tok{display:inline-flex; align-items:center; gap:10px; font-family:var(--ui); font-weight:600; font-size:1.16rem}
+  .leg .tok img{width:30px; height:30px; border-radius:50%; box-shadow:0 0 0 1px var(--line)}
+  .leg .tok .cv{color:var(--faint); font-size:.78em}
+  .leg .gv{color:var(--faint); font-size:.86rem; white-space:nowrap}
+  .rswitch{width:48px; height:48px; justify-self:center; border-radius:50%; border:1px solid var(--line); background:var(--panel); color:var(--accent-ink); display:grid; place-items:center; box-shadow:0 8px 18px -10px rgba(10,50,44,.4); transition:transform .25s ease}
+  .rswitch svg{width:18px; height:18px}
+  .rswitch:hover{transform:rotate(180deg)}
+  .rbar-foot{display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:12px}
+  .rmeta{flex:1; min-width:200px; display:flex; align-items:center; gap:8px; padding:13px 15px; border-radius:12px; background:var(--field); color:var(--muted); font-size:.84rem}
+  .rmeta svg{width:15px; height:15px; color:var(--accent-ink); flex:none}
+  .rcta{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:52px; padding:0 30px; border-radius:14px; background:var(--ink); color:#fff; font-family:var(--ui); font-weight:600; font-size:1rem; box-shadow:0 14px 28px -16px rgba(15,26,24,.65); transition:transform .18s ease, filter .18s ease}
+  .rcta:hover{transform:translateY(-1px); filter:brightness(1.08)}
+  .rnote{margin:11px 4px 0; color:var(--faint); font-size:.78rem}
+
+  /* why - icon-left rows */
+  .rows{display:grid; gap:12px}
+  .frow2{display:flex; align-items:flex-start; gap:18px; padding:22px 24px; background:var(--panel); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow-soft)}
+  .frow2 .ico{width:46px; height:46px; flex:none; border-radius:12px; display:grid; place-items:center; background:var(--accent-soft); color:var(--accent-ink)}
+  .frow2 .ico svg{width:22px; height:22px}
+  .frow2 h3{font-family:var(--ui); font-weight:600; font-size:1.12rem; color:var(--ink); letter-spacing:-.01em}
+  .frow2 p{margin-top:6px; color:var(--muted); font-size:.95rem; line-height:1.55; max-width:70ch}
+
+  /* how it works */
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  .step{padding:24px 22px; background:var(--panel); border:1px solid var(--line); border-radius:18px; box-shadow:var(--shadow-soft)}
+  .step .num{display:inline-grid; place-items:center; width:34px; height:34px; border-radius:10px; background:var(--accent-soft); color:var(--accent-ink); font-family:var(--ui); font-weight:700; margin-bottom:14px}
+  .step h3{margin:0 0 8px; font-family:var(--ui); font-weight:600; font-size:1.12rem; color:var(--ink); letter-spacing:-.01em}
+  .step p{color:var(--muted); font-size:.94rem; line-height:1.55}
+
+  /* FAQ - 2-col cards */
+  .faq{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+  .qa{padding:22px; background:var(--panel); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow-soft)}
+  .qa .qn{font-family:var(--ui); font-weight:700; font-size:.8rem; color:var(--accent-ink); letter-spacing:.04em}
+  .qa h3{margin:8px 0 8px; font-family:var(--ui); font-weight:600; font-size:1.08rem; color:var(--ink); letter-spacing:-.01em}
+  .qa p{color:var(--muted); font-size:.95rem; line-height:1.6}
+  .qa a:not(.cite){color:var(--accent-ink); font-weight:600; box-shadow:inset 0 -.34em 0 var(--accent-soft)}
+
+  /* related */
+  .related{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  .rel{display:flex; flex-direction:column; gap:7px; padding:22px; background:var(--panel); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow-soft); transition:transform .16s ease, border-color .16s ease}
+  .rel:hover{transform:translateY(-2px); border-color:rgba(78,91,166,.35)}
+  .rel .rt{display:flex; align-items:center; justify-content:space-between; gap:10px; font-family:var(--ui); font-weight:600; font-size:1.05rem; color:var(--ink); letter-spacing:-.01em}
+  .rel .rt svg{width:16px; height:16px; color:var(--accent-ink); flex:none}
+  .rel p{color:var(--muted); font-size:.9rem; line-height:1.5}
+
+  .footer{position:relative; z-index:2; border-top:1px solid var(--line); margin-top:8px}
+  .footer .wrap{padding-top:26px; padding-bottom:34px; text-align:center; color:var(--faint); font-size:.84rem}
+  .footer b{color:var(--muted); font-weight:600}
+
+  @keyframes pulse{0%{box-shadow:0 0 0 0 var(--accent-soft)} 70%{box-shadow:0 0 0 8px rgba(78,91,166,0)} 100%{box-shadow:0 0 0 0 rgba(78,91,166,0)}}
+
+  @media (max-width:920px){
+    .nav{display:none}
+    .rgrid{grid-template-columns:1fr; gap:9px}
+    .rswitch{transform:rotate(90deg)}
+    .rswitch:hover{transform:rotate(270deg)}
+    .steps,.faq,.related{grid-template-columns:1fr}
   }
-}
-
-@media (max-width: 920px) {
-  body {
-    overflow-y: auto;
+  @media (max-width:430px){
+    .hero h1{font-size:clamp(2.5rem,12vw,3.5rem)}
+    .cta-row .primary,.cta-row .ghost{width:100%}
+    .rbar-foot{flex-direction:column; align-items:stretch}
+    .rcta{width:100%}
   }
-
-  .topbar {
-    padding: 18px 18px 6px;
-  }
-
-  .nav {
-    display: none;
-  }
-
-  .page-shell {
-    min-height: auto;
-    display: block;
-    padding: 18px 18px 20px;
-  }
-
-  .hero {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .hero-copy {
-    max-width: 720px;
-  }
-
-  h1 {
-    font-size: clamp(3.18rem, 16vw, 5.1rem);
-  }
-
-  .value {
-    font-size: 1rem;
-  }
-
-  .trust-chips {
-    margin-bottom: 24px;
-  }
-
-  .app-window {
-    justify-self: stretch;
-    width: 100%;
-    max-width: 560px;
-  }
-
-  .texture-band {
-    margin-top: 26px;
-  }
-}
-
-@media (max-width: 560px) {
-  .topbar {
-    gap: 12px;
-  }
-
-  .brand {
-    font-size: 0.98rem;
-  }
-
-  .page-shell {
-    padding-inline: 14px;
-  }
-
-  .eyebrow {
-    margin-bottom: 14px;
-  }
-
-  h1 {
-    margin-bottom: 16px;
-  }
-
-  h2 {
-    font-size: 1.32rem;
-  }
-
-  .trust-chips {
-    gap: 8px;
-  }
-
-  .trust-chips span {
-    min-height: 34px;
-    padding-inline: 11px;
-    font-size: 0.82rem;
-  }
-
-  .hero-link {
-    width: 100%;
-  }
-
-  .app-window {
-    padding: 12px;
-    border-radius: 24px;
-  }
-
-  .window-chrome {
-    gap: 8px;
-  }
-
-  .network-pill,
-  .preview-pill {
-    font-size: 0.76rem;
-  }
-
-  .network-pill {
-    padding-right: 10px;
-  }
-
-  .asset-panel {
-    padding: 15px;
-  }
-
-  .route-row {
-    flex-wrap: wrap;
-    justify-content: center;
-    min-height: 58px;
-    padding: 8px 10px;
-    text-align: center;
-  }
-
-  .hop-line {
-    order: 3;
-    flex-basis: 100%;
-  }
-
-  .texture-track {
-    min-height: 42px;
-  }
-
-  .footer {
-    padding: 0 4px;
-  }
-}
-
-@media (max-height: 740px) and (min-width: 921px) {
-  .topbar {
-    padding-top: 14px;
-  }
-
-  .page-shell {
-    padding-top: 4px;
-    padding-bottom: 12px;
-  }
-
-  .eyebrow {
-    margin-bottom: 12px;
-  }
-
-  h1 {
-    margin-bottom: 14px;
-    font-size: clamp(3.6rem, 7vw, 5.8rem);
-  }
-
-  .value,
-  h2 {
-    margin-bottom: 14px;
-  }
-
-  .trust-chips {
-    margin-bottom: 18px;
-  }
-
-  .texture-band {
-    margin-top: 4px;
-    margin-bottom: 8px;
-  }
-
-  .texture-track {
-    min-height: 38px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 1ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 1ms !important;
-  }
-}
-
-
-  
-.footer {
-  text-align: center !important;
-}
+  @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important; transition-duration:.01ms!important}}
   </style>
 </head>
 <body>
+  <div class="bg" aria-hidden="true"><div class="glow"></div><div class="hatch"></div></div>
+
   <header class="topbar">
-    <div class="brand">
+    <a class="brand" href="./">
       <img src="favicon.png" width="30" height="30" alt="">
       <span>Anyswap v2</span>
-    </div>
+    </a>
     <span class="spacer"></span>
     <nav class="nav" aria-label="Main Navigation">
       <a href="how-it-works/">How it works</a>
@@ -733,11 +177,148 @@ h2 {
       <a href="supported-chains/">Supported Chains</a>
     </nav>
   </header>
-  <main class="stage" style="padding: 100px 24px; text-align: center; max-width: 800px; margin: 0 auto;">
-    <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 24px; font-weight: 800;">Anyswap v2</h1>
-    <p class="value" style="font-size: 1.25rem; opacity: 0.8; margin-bottom: 40px; line-height: 1.6;">Secure, non-custodial gateway for decentralized operations. Connect your Web3 wallet to enter the portal.</p>
-    <a class="open-app" href="dashboard/" style="display: inline-flex; justify-content: center; align-items: center; min-height: 52px; padding: 0 32px; border-radius: 9999px; background: var(--accent, #625bf3); color: #fff; font-weight: 700; text-decoration: none; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.15); transition: transform 0.2s ease;">Open App Dashboard</a>
+
+  <main>
+    <!-- HERO + WIDE ROUTE -->
+    <section class="wrap hero">
+      <span class="eyebrow"><span class="dot"></span>Cross-Chain Swap</span>
+      <h1>Anyswap v2</h1>
+      <p class="deck">Anyswap v2 is a wallet-first DeFi app for swapping and bridging crypto through <strong>live cross-chain routes</strong> before you sign.</p>
+      <div class="cta-row">
+        <a class="primary" href="dashboard/">Open App
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="ghost" href="dashboard/">Preview route
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <section class="routebar" aria-label="Swap preview">
+        <div class="rhead">
+          <span class="ct">Anyswap v2 route</span>
+          <span class="pill"><span class="pdot"></span>Preview</span>
+        </div>
+        <div class="rgrid">
+          <div class="leg">
+            <span class="lab">You pay</span>
+            <div class="legrow">
+              <button class="tok" type="button"><img src="eth.png" alt="ETH">ETH <span class="cv" aria-hidden="true">&#9662;</span></button>
+              <span class="gv">Amount in app</span>
+            </div>
+          </div>
+          <button class="rswitch" type="button" data-switch aria-label="Switch direction">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v13M4 14l3 3 3-3M17 20V7M14 10l3-3 3 3"/></svg>
+          </button>
+          <div class="leg">
+            <span class="lab">You receive</span>
+            <div class="legrow">
+              <button class="tok" type="button"><img src="usdc.png" alt="USDC">USDC <span class="cv" aria-hidden="true">&#9662;</span></button>
+              <span class="gv">Live quote in app</span>
+            </div>
+          </div>
+        </div>
+        <div class="rbar-foot">
+          <div class="rmeta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 5v5l3 3"/></svg>
+            Route, time, liquidity and network cost are shown in the app before confirmation.
+          </div>
+          <a class="rcta" href="dashboard/">Open App
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <p class="rnote">Preview only &middot; non-custodial wallet flow &middot; connect your wallet in the app</p>
+      </section>
+    </section>
+
+    <!-- WHY (icon-left rows) -->
+    <section class="wrap sec" id="why">
+      <div class="sec-head">
+        <span class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>Why Anyswap v2</span>
+        <h2 class="h2">Built for serious cross-chain swaps</h2>
+      </div>
+      <div class="rows">
+        <div class="frow2">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+          <div><h3>Wallet-native control</h3><p>Anyswap v2 keeps the flow centered on your <a class="cite" href="https://metamask.io/" rel="nofollow noopener noreferrer">Web3 wallet</a>. You connect, review the route, and sign from your own wallet instead of handing funds to an account.</p></div>
+        </div>
+        <div class="frow2">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>
+          <div><h3>Cross-chain asset movement</h3><p>The original protocol documentation describes V2 as a bridge service for moving assets between blockchains through lock, mint, burn and redeem flows in <a class="cite" href="https://docs.multichain.org/" rel="nofollow noopener noreferrer">official protocol documentation</a>.</p></div>
+        </div>
+        <div class="frow2">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 9 9 9 9 0 0 1-9 9"/><path d="M3 12h6l2-3 2 6 2-3h2"/></svg></span>
+          <div><h3>Clear costs before signing</h3><p>The app surfaces route details, estimated completion behavior and <a class="cite" href="https://etherscan.io/gastracker" rel="nofollow noopener noreferrer">network gas</a> context before you confirm, so the final decision happens inside your wallet.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="wrap sec" id="how">
+      <div class="sec-head">
+        <span class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>How it works</span>
+        <h2 class="h2">Use Anyswap v2 in three steps</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="num">1</span><h3>Connect your wallet</h3><p>Open the app, connect a wallet, and choose the source network. You stay in control of keys and approvals throughout the swap.</p></div>
+        <div class="step"><span class="num">2</span><h3>Choose assets and chain</h3><p>Select the asset you want to send, the asset you want to receive, and the destination chain. ETH and <a class="cite" href="https://www.circle.com/en/usdc" rel="nofollow noopener noreferrer">USDC</a> are common route examples when available in the app.</p></div>
+        <div class="step"><span class="num">3</span><h3>Review, approve, confirm</h3><p>Check the live quote, bridge route, expected time behavior and cost, then approve only what the wallet asks you to approve.</p></div>
+      </div>
+    </section>
+
+    <!-- FAQ (2-col) -->
+    <section class="wrap sec" id="faq">
+      <div class="sec-head">
+        <span class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .8-1 1.7M12 17h.01"/></svg>FAQ</span>
+        <h2 class="h2">Anyswap v2 questions</h2>
+      </div>
+      <div class="faq">
+        <div class="qa"><span class="qn">01</span><h3>What is Anyswap v2?</h3><p>Anyswap v2 is a DeFi swap and bridge experience for moving crypto assets across networks from a connected wallet. It is designed for users who want route visibility before signing.</p></div>
+        <div class="qa"><span class="qn">02</span><h3>Is Anyswap v2 non-custodial?</h3><p>The app flow is non-custodial from the wallet side: you connect your wallet, review the transaction, and sign approvals yourself. Always read the wallet prompt before confirming.</p></div>
+        <div class="qa"><span class="qn">03</span><h3>Which chains and assets are supported?</h3><p>Availability depends on the live app route, token liquidity and network status. See the full list on the <a href="supported-chains/">supported chains</a> page before planning a transfer.</p></div>
+        <div class="qa"><span class="qn">04</span><h3>How long does an Anyswap v2 swap take?</h3><p>Timing depends on the source chain, destination chain, bridge route, confirmations and liquidity. The app shows route timing before you sign.</p></div>
+        <div class="qa"><span class="qn">05</span><h3>What does it cost to use?</h3><p>Costs can include network gas, route fees and token approval transactions. Review the live quote and wallet prompt because costs change with network conditions.</p></div>
+        <div class="qa"><span class="qn">06</span><h3>How should I check safety?</h3><p>Confirm the token, chain, recipient address and approval request. For assets like <a class="cite" href="https://ethereum.org/en/" rel="nofollow noopener noreferrer">Ethereum</a> tokens, verify contract details and avoid signing permissions you do not understand.</p></div>
+      </div>
+    </section>
+
+    <!-- RELATED -->
+    <section class="wrap sec" id="more">
+      <div class="sec-head">
+        <span class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg>Learn more</span>
+        <h2 class="h2">Explore Anyswap v2</h2>
+      </div>
+      <div class="related">
+        <a class="rel" href="how-it-works/"><span class="rt">How it works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span><p>Follow the swap flow from wallet connection to route review and final confirmation.</p></a>
+        <a class="rel" href="security/"><span class="rt">Security <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span><p>Understand approvals, contract prompts, self-custody and safer cross-chain habits.</p></a>
+        <a class="rel" href="supported-chains/"><span class="rt">Supported chains <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span><p>Check the networks and assets available before opening a route in the app.</p></a>
+      </div>
+    </section>
   </main>
-  <footer class="footer">Anyswap v2 &mdash; 2026</footer>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>Information on this page is for educational purposes only and is not financial advice.</p>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebSite","@id":"https://anyswap-v2.github.io/#website","url":"https://anyswap-v2.github.io/","name":"Anyswap v2"},
+    {"@type":"Organization","@id":"https://anyswap-v2.github.io/#org","name":"Anyswap v2","url":"https://anyswap-v2.github.io/","logo":"https://anyswap-v2.github.io/favicon.png"},
+    {"@type":"WebApplication","@id":"https://anyswap-v2.github.io/#app","name":"Anyswap v2","applicationCategory":"FinanceApplication","operatingSystem":"Web","url":"https://anyswap-v2.github.io/","browserRequirements":"Requires a Web3 wallet","description":"Anyswap v2 is a non-custodial DeFi app experience for cross-chain swap and bridge routes with live route details before wallet confirmation."},
+    {"@type":"FAQPage","@id":"https://anyswap-v2.github.io/#faq","mainEntity":[
+      {"@type":"Question","name":"What is Anyswap v2?","acceptedAnswer":{"@type":"Answer","text":"Anyswap v2 is a DeFi swap and bridge experience for moving crypto assets across networks from a connected wallet. It is designed for users who want route visibility before signing."}},
+      {"@type":"Question","name":"Is Anyswap v2 non-custodial?","acceptedAnswer":{"@type":"Answer","text":"The app flow is non-custodial from the wallet side: you connect your wallet, review the transaction, and sign approvals yourself. Always read the wallet prompt before confirming."}},
+      {"@type":"Question","name":"Which chains and assets are supported?","acceptedAnswer":{"@type":"Answer","text":"Availability depends on the live app route, token liquidity and network status. See the full list on the supported chains page before planning a transfer."}},
+      {"@type":"Question","name":"How long does an Anyswap v2 swap take?","acceptedAnswer":{"@type":"Answer","text":"Timing depends on the source chain, destination chain, bridge route, confirmations and liquidity. The app shows route timing before you sign."}},
+      {"@type":"Question","name":"What does it cost to use?","acceptedAnswer":{"@type":"Answer","text":"Costs can include network gas, route fees and token approval transactions. Review the live quote and wallet prompt because costs change with network conditions."}},
+      {"@type":"Question","name":"How should I check safety?","acceptedAnswer":{"@type":"Answer","text":"Confirm the token, chain, recipient address and approval request. For Ethereum tokens, verify contract details and avoid signing permissions you do not understand."}}
+    ]}
+  ]}
+  </script>
+
+  <script>
+  (function(){"use strict";var b=document.querySelector("[data-switch]");if(!b)return;b.addEventListener("click",function(){var p=document.querySelectorAll(".rgrid .tok");if(p.length<2)return;var t=p[0].innerHTML;p[0].innerHTML=p[1].innerHTML;p[1].innerHTML=t;});}());
+  </script>
 </body>
 </html>
